@@ -1,0 +1,53 @@
+//
+// Custom Main
+//
+// Add your own styles or override existing ones
+//
+// This file is included last, so you have access
+// to all Bootstrap and OneUI functions/mixins/styles etc
+// --------------------------------------------------
+
+// If you have many custom styles, you can create and import additional files
+// For example you can create _component1.scss and include it as follows:
+// @import 'component1';
+
+#sidebar {
+    .content-header {
+        height: 10rem;
+    }
+
+    .js-sidebar-scroll {
+        height: calc(100% - 10rem);
+    }
+}
+
+div.dataTables_wrapper {
+    div.dataTables_filter {
+        label {
+            display: block;
+        }
+
+        input {
+            margin-left: 0;
+            margin-right: 0.5em;
+        }
+    }
+}
+
+.dataTables_paginate .pagination {
+    li.previous i,
+    li.next i {
+        transform: scaleX(-1);
+    }
+}
+
+.select2-results__option {
+    text-align: right;
+}
+
+.select2-container.no-left-border-radius {
+    .select2-selection {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}

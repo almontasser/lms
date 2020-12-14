@@ -1,0 +1,349 @@
+@extends('layouts.backend')
+
+@section('css_after')
+    <link rel="stylesheet" href="{{ asset('/js/plugins/magnific-popup/magnific-popup.css') }}">
+@endsection
+
+@section('content')
+    <div class="bg-image" @if($book->thumbnail) style="background-image: url('/uploads/{{$book->thumbnail}}');" @endif>
+        <div class="bg-primary-dark-op" style="height: 200px;">
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="block block-rounded">
+            <div class="block-content">
+                <!-- Vitals -->
+                <div class="row items-push">
+                    <div class="col-md-4">
+                        <!-- Images -->
+                        <!-- Magnific Popup (.js-gallery class is initialized in Helpers.magnific()) -->
+                        <!-- For more info and examples you can check out http://dimsemenov.com/plugins/magnific-popup/ -->
+                        <div class="row gutters-tiny js-gallery img-fluid-100">
+                            <div class="col-12 mb-3">
+                                <a class="img-link img-link-zoom-in img-lightbox" href="/uploads/{{$book->thumbnail}}">
+                                    <img class="img-fluid" src="/uploads/{{$book->thumbnail}}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <!-- END Images -->
+                    </div>
+                    <div class="col-md-8">
+                        <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                            <div>
+                                <h1 class="h2 mb-2">{{$book->title}}</h1>
+                                <h2 class="h4 font-w400 mb-0">{{$book->author}}</h2>
+                            </div>
+                            <div>
+                                <div class="font-size-sm font-w600 text-success text-left">متوفر</div>
+                                <div class="font-size-sm text-muted text-left">20 نسخة</div>
+                            </div>
+                        </div>
+                        <p class="mt-2">{{$book->description}}</p>
+                        <!-- END Info -->
+                    </div>
+                </div>
+                <!-- END Vitals -->
+
+            {{--                <!-- Author -->--}}
+            {{--                <div class="block block-rounded block-bordered">--}}
+            {{--                    <div class="block-content block-content-full d-flex justify-content-between align-items-center">--}}
+            {{--                        <div>--}}
+            {{--                            <div class="mb-2">--}}
+            {{--                                By <a class="font-w600" href="javascript:void(0)">Emma Cooper</a>--}}
+            {{--                            </div>--}}
+            {{--                            <div>--}}
+            {{--                                <a class="btn btn-sm btn-light" href="javascript:void(0)">--}}
+            {{--                                    <i class="fa fa-fw fa-plus text-success"></i>--}}
+            {{--                                </a>--}}
+            {{--                                <a class="btn btn-sm btn-light" href="javascript:void(0)">--}}
+            {{--                                    <i class="fa fa-fw fa-envelope text-muted"></i>--}}
+            {{--                                </a>--}}
+            {{--                            </div>--}}
+            {{--                        </div>--}}
+            {{--                        <img class="img-avatar" src="assets/media/avatars/avatar2.jpg" alt="">--}}
+            {{--                    </div>--}}
+            {{--                </div>--}}
+            {{--                <!-- END Author -->--}}
+
+            <!-- Extra Info Tabs -->
+                <!-- Bootstrap Tabs (data-toggle="tabs" is initialized in Helpers.coreBootstrapTabs()) -->
+                <div class="block block-rounded">
+                    <ul class="nav nav-tabs nav-tabs-alt align-items-center pr-0" data-toggle="tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#ecom-product-info">معلومات</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#ecom-product-comments">تعليقات</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#ecom-product-reviews">مراجعات</a>
+                        </li>
+                    </ul>
+                    <div class="block-content tab-content">
+                        <!-- Info -->
+                        <div class="tab-pane pull-x active" id="ecom-product-info" role="tabpanel">
+                            <table class="table table-striped table-borderless">
+                                <thead>
+                                <tr>
+                                    <th colspan="2">معلومات عن الكتاب</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td style="width: 20%;">العنوان</td>
+                                    <td>
+                                        {{$book->title}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>الكاتب</td>
+                                    <td>
+                                        {{$book->author}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>دار النشر</td>
+                                    <td>
+                                        {{$book->publisher}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>الموضوع</td>
+                                    <td>
+                                        {{$book->subject}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>المجال</td>
+                                    <td>
+                                        {{$book->field->name}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>التخصص</td>
+                                    <td>
+                                        {{$book->specialty->name}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>سنة النشر</td>
+                                    <td>
+                                        {{$book->print_year}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>رقم الطبعة</td>
+                                    <td>
+                                        {{$book->edition}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ISBN</td>
+                                    <td>
+                                        {{$book->ISBN}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>التصنيف</td>
+                                    <td>
+                                        {{$book->category}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-striped table-borderless">
+                                <thead>
+                                <tr>
+                                    <th colspan="2">مكان الكتاب</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td style="width: 20%;">
+                                        الصف
+                                    </td>
+                                    <td>{{$book->row}}</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        العمود
+                                    </td>
+                                    <td>{{$book->col}}</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        الرف
+                                    </td>
+                                    <td>
+                                        {{$book->rack}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- END Info -->
+
+                        <!-- Comments -->
+                        <div class="tab-pane pull-x font-size-sm" id="ecom-product-comments" role="tabpanel">
+{{--                            <div class="media push">--}}
+{{--                                <a class="ml-3" href="javascript:void(0)">--}}
+{{--                                    <img class="img-avatar img-avatar32" src="/media/avatars/avatar10.jpg" alt="">--}}
+{{--                                </a>--}}
+{{--                                <div class="media-body">--}}
+{{--                                    <a class="font-w600" href="javascript:void(0)">محمود المنتصر</a>--}}
+{{--                                    <mark class="font-w600 text-danger">مدير</mark>--}}
+{{--                                    <p class="my-1">كتاب جيد جدا، ومحتواه رائع!</p>--}}
+{{--                                    <a class="ml-1" href="javascript:void(0)">إعجاب</a>--}}
+{{--                                    <a class="ml-1" href="javascript:void(0)">رد</a>--}}
+{{--                                    <span class="text-muted"><em>منذ 10 دقائق</em></span>--}}
+{{--                                    <div class="media mt-3">--}}
+{{--                                        <a class="ml-3" href="javascript:void(0)">--}}
+{{--                                            <img class="img-avatar img-avatar32" src="/media/avatars/avatar10.jpg"--}}
+{{--                                                 alt="">--}}
+{{--                                        </a>--}}
+{{--                                        <div class="media-body">--}}
+{{--                                            <a class="font-w600" href="javascript:void(0)">محمد محمد</a>--}}
+{{--                                            <p class="my-1">شكرا لك</p>--}}
+{{--                                            <a class="ml-1" href="javascript:void(0)">إعجاب</a>--}}
+{{--                                            <a class="ml-1" href="javascript:void(0)">رد</a>--}}
+{{--                                            <span class="text-muted"><em>منذ 5 دقائق</em></span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+                            <div class="pb-2 pr-2">لا يوجد أي تعليقات</div>
+                            @auth
+                                <form action="" method="POST">
+                                    <input type="text" class="form-control form-control-alt" name="comment"
+                                           placeholder="اكتب تعليق...">
+                                </form>
+                            @endauth
+                        </div>
+                        <!-- END Comments -->
+
+                        <!-- Reviews -->
+                        <div class="tab-pane pull-x font-size-sm" id="ecom-product-reviews" role="tabpanel">
+                            <!-- Average Rating -->
+                            <div class="block block-rounded bg-body-light">
+                                <div class="block-content text-center">
+                                    <p class="text-warning mb-2">
+                                        <i class="fa fa-star fa-2x"></i>
+                                        <i class="fa fa-star fa-2x"></i>
+                                        <i class="fa fa-star fa-2x"></i>
+                                        <i class="fa fa-star fa-2x"></i>
+                                        <i class="fa fa-star-o fa-2x"></i>
+                                    </p>
+                                    <p>
+                                        <strong>5.0</strong>/4.0 من <strong>5</strong> مراجعات
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- END Average Rating -->
+
+                            <!-- Ratings -->
+                            <div class="media push">
+                                <a class="mr-3" href="javascript:void(0)">
+                                    {{--                                    <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar11.jpg" alt="">--}}
+                                </a>
+                                <div class="media-body">
+                                                        <span class="text-warning">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </span>
+                                    <a class="font-w600" href="javascript:void(0)">Jack Estrada</a>
+                                    <p class="my-1">Awesome Quality!</p>
+                                    <span class="text-muted"><em>2 hours ago</em></span>
+                                </div>
+                            </div>
+                            <div class="media push">
+                                <a class="mr-3" href="javascript:void(0)">
+                                    {{--                                    <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar1.jpg" alt="">--}}
+                                </a>
+                                <div class="media-body">
+                                                        <span class="text-warning">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </span>
+                                    <a class="font-w600" href="javascript:void(0)">Lori Moore</a>
+                                    <p class="my-1">So cool badges!</p>
+                                    <span class="text-muted"><em>5 hours ago</em></span>
+                                </div>
+                            </div>
+                            <div class="media push">
+                                <a class="mr-3" href="javascript:void(0)">
+                                    {{--                                    <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar15.jpg" alt="">--}}
+                                </a>
+                                <div class="media-body">
+                                                        <span class="text-warning">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </span>
+                                    <a class="font-w600" href="javascript:void(0)">Jose Wagner</a>
+                                    <p class="my-1">They look great, thank you!</p>
+                                    <span class="text-muted"><em>15 hours ago</em></span>
+                                </div>
+                            </div>
+                            <div class="media push">
+                                <a class="mr-3" href="javascript:void(0)">
+                                    {{--                                    <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar13.jpg" alt="">--}}
+                                </a>
+                                <div class="media-body">
+                                                        <span class="text-warning">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </span>
+                                    <a class="font-w600" href="javascript:void(0)">Jack Estrada</a>
+                                    <p class="my-1">Badges for life!</p>
+                                    <span class="text-muted"><em>20 hours ago</em></span>
+                                </div>
+                            </div>
+                            <div class="media push">
+                                <a class="mr-3" href="javascript:void(0)">
+                                    {{--                                    <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar1.jpg" alt="">--}}
+                                </a>
+                                <div class="media-body">
+                                                        <span class="text-warning">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </span>
+                                    <a class="font-w600" href="javascript:void(0)">Lisa Jenkins</a>
+                                    <p class="my-1">So good, keep it up!</p>
+                                    <span class="text-muted"><em>22 hours ago</em></span>
+                                </div>
+                            </div>
+                            <!-- END Ratings -->
+                        </div>
+                        <!-- END Reviews -->
+                    </div>
+                </div>
+                <!-- END Extra Info Tabs -->
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('js_after')
+    <!-- Page JS Plugins -->
+    <script src="{{asset('js/plugins/magnific-popup/jquery.magnific-popup.min.js')}}"></script>
+
+    <!-- Page JS Helpers (Magnific Popup Plugin) -->
+    <script>jQuery(function () {
+            One.helpers('magnific-popup');
+        });</script>
+@endsection
