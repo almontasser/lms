@@ -14,7 +14,7 @@ class AddDescriptionToBooksTable extends Migration
     public function up()
     {
         Schema::table('books', function (Blueprint $table) {
-            $table->string('description');
+            $table->text('description');
         });
     }
 

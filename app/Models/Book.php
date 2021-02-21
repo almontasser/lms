@@ -28,7 +28,7 @@ class Book extends Model
         'col',
         'rack',
         'notes',
-        'QR',
+        'barcode',
         'description',
     ];
 
@@ -40,5 +40,10 @@ class Book extends Model
     public function specialty()
     {
         return $this->belongsTo(Specialty::class);
+    }
+
+    public function getCover()
+    {
+        return $this->thumbnail ? '/uploads/' . $this->thumbnail : '/media/no_cover.jpg';
     }
 }

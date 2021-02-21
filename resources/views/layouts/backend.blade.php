@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" id="css-main" href="{{ mix('/css/oneui.css') }}">
 
+    <link rel="stylesheet" id="css-main" href="{{ asset('/css/print.min.css') }}">
+
     <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
 <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/amethyst.css') }}"> -->
 @yield('css_after')
@@ -278,7 +280,7 @@
                     </li>
                     @_else()
                     <li class="nav-main-item open">
-                        <a class="nav-main-link" href="{{ route('books') }}">
+                        <a class="nav-main-link" href="{{ route('books-list') }}">
                             <i class="nav-main-link-icon si si-book-open"></i>
                             <span class="nav-main-link-name">الكتب</span>
                         </a>
@@ -457,7 +459,7 @@
                                 aria-expanded="false">
                             <img class="rounded-circle"
                                  src="{{Auth::user()->getPicture()}}"
-                            alt="Header Avatar" style="width: 21px;">
+                                 alt="Header Avatar" style="width: 21px;">
                             <span class="d-none d-sm-inline-block mr-2">{{ Auth::user()->name }}</span>
                             <i class="fa fa-fw fa-angle-down d-none d-sm-inline-block mr-1 mt-1"></i>
                         </button>
@@ -678,7 +680,7 @@
 <script src="{{ mix('js/oneui.app.js') }}"></script>
 
 <script src="{{asset('js/plugins/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
-
+<script src="{{ asset('js/print.min.js') }}"></script>
 @yield('js_after')
 </body>
 

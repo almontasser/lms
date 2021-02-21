@@ -60,26 +60,32 @@ class BookController extends Controller
             'edition', 'ISBN', 'category', 'price', 'row', 'col', 'rack', 'notes', 'description']);
 
         do {
-            $inputs['QR'] = uniqid('B'); // returns 13 character
-        } while (!Book::where('QR', $inputs['QR'])->get()->isEmpty());
+            $inputs['barcode'] = generateRandomString(6);
+        } while (!Book::where('barcode', $inputs['barcode'])->get()->isEmpty());
 
-        if ($request->file('file')) {
-            $file = $inputs['QR'] . '.pdf';
-            $request->file('file')->move(public_path('uploads'), $file);
-
-            $inputs['file'] = $file;
+        if ($request->hasFile('file')) {
+            $inputs["file"] = $inputs['barcode'] . '.pdf';
+            $request->file->storeAs('books', $inputs["file"]);
         }
 
+        // if ($request->file('file')) {
+        //     $file = $inputs['barcode'] . '.pdf';
+        //     $request->file('file')->move(public_path('uploads'), $file);
+
+        //     $inputs['file'] = $file;
+        // }
+
         if ($request->file('thumbnail')) {
-            $thumbnail = $inputs['QR'] . '.' . $request->file('thumbnail')->extension();
+            $thumbnail = $inputs['barcode'] . '.' . $request->file('thumbnail')->extension();
             $request->file('thumbnail')->move(public_path('uploads'), $thumbnail);
+
 
             $inputs['thumbnail'] = $thumbnail;
         }
 
         Book::create($inputs);
 
-        return redirect()->route('books-list');
+        return redirect()->route('books');
     }
 
     public function edit(Book $book)
@@ -97,15 +103,20 @@ class BookController extends Controller
         $inputs = $request->only(['title', 'author', 'publisher', 'subject', 'field_id', 'specialty_id', 'print_year',
             'edition', 'ISBN', 'category', 'price', 'row', 'col', 'rack', 'notes', 'description']);
 
-        if ($request->file('file')) {
-            $file = $inputs['QR'] . '.pdf';
-            $request->file('file')->move(public_path('uploads'), $file);
-
-            $inputs['file'] = $file;
+        if ($request->hasFile('file')) {
+            $inputs["file"] = $inputs['barcode'] . '.pdf';
+            $request->file->storeAs('books', $inputs["file"]);
         }
 
+        // if ($request->file('file')) {
+        //     $file = $inputs['barcode'] . '.pdf';
+        //     $request->file('file')->move(public_path('uploads'), $file);
+
+        //     $inputs['file'] = $file;
+        // }
+
         if ($request->file('thumbnail')) {
-            $thumbnail = $inputs['QR'] . '.' . $request->file('thumbnail')->extension();
+            $thumbnail = $inputs['barcode'] . '.' . $request->file('thumbnail')->extension();
             $request->file('thumbnail')->move(public_path('uploads'), $thumbnail);
 
             $inputs['thumbnail'] = $thumbnail;
@@ -113,7 +124,7 @@ class BookController extends Controller
 
         $book->update($inputs);
 
-        return redirect()->route('books-list');
+        return redirect()->route('books');
     }
 
     public function index()
@@ -126,5 +137,11 @@ class BookController extends Controller
     public function show(Book $book)
     {
         return view('books.show', ['book' => $book]);
+    }
+
+    public function download(Book $book)
+    {
+        $path = storage_path('app/books/' . $book->file);
+        return response()->download($path, sanitize_file_name($book->title . ".pdf"));
     }
 }

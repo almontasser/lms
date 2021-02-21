@@ -5,8 +5,7 @@
     <textarea name="{{ $field }}" id="{{ $field }}"
               class="form-control autocomplete-off @error($field) is-invalid @enderror"
               placeholder="{{ $title }}"
-              @if($set_old_data) value="{{ old($field, $model ? $model[$field] : '') }}" @endif
-              autocomplete="off" readonly cols="30" rows="10"></textarea>
+              autocomplete="off" readonly cols="30" rows="10">@if($set_old_data){{ old($field, $model ? $model[$field] : '') }}@endif</textarea>
     @error($field)
     <div id="{{ $field }}-error" class="invalid-feedback animated fadeIn">{{ $message }}</div>
     @enderror

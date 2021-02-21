@@ -37,6 +37,8 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 
 Route::get('/books/list', [BookController::class, 'list'])->name('books-list');
+Route::get('books/show/{book}', [BookController::class, 'show'])->name('book-show');
+Route::get('/books/{book}/download',[BookController::class, 'download'])->name('book-download');
 
 
 Route::get('/papers', [HomeController::class, 'index'])->name('papers');
@@ -57,7 +59,6 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('books/insert', [BookController::class, 'store']);
     Route::get('books/edit/{book}', [BookController::class, 'edit'])->name('book-edit');
     Route::post('books/edit/{book}', [BookController::class, 'update']);
-    Route::get('books/show/{book}', [BookController::class, 'show'])->name('book-show');
 
     Route::post('json/fields', [FieldController::class, 'json_search'])->name('json-fields');
     Route::post('json/fields/insert', [FieldController::class, 'json_store'])->name('json-fields-insert');
@@ -66,7 +67,6 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('json/specialties', [SpecialtyController::class, 'json_search'])->name('json-specialties');
     Route::post('json/specialties/insert', [SpecialtyController::class, 'json_store'])->name('json-specialties-insert');
     Route::post('json/specialties/get', [SpecialtyController::class, 'json_get'])->name('json-specialties-get');
-
 });
 
 

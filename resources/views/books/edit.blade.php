@@ -84,7 +84,8 @@
                 </div>
                 <x-form-input field="notes" title="ملاحظات" :model="$book"></x-form-input>
                 <x-form-textarea field="description" title="الوصف" :model="$book"></x-form-textarea>
-                <x-form-file-input field="file" title="ملف PDF للكتاب" :model="$book"></x-form-file-input>
+                <x-form-file-input field="file" title="ملف PDF للكتاب" :model="$book"
+                                   download="{{$edit ? route('book-download', ['book' => $book]) : ''}}"></x-form-file-input>
                 <x-form-file-input field="thumbnail" title="غلاف الكتاب" :model="$book"
                                    image="true" hint="يجب أن لا تزيد أبعاد الصورة عن 1000px في الطول والعرض"></x-form-file-input>
                 <button type="submit" class="btn btn-alt-primary">

@@ -1,4 +1,4 @@
-@props(['field', 'title', 'required' => false, 'model' => null, 'image' => false, 'hint' => ''])
+@props(['field', 'title', 'required' => false, 'model' => null, 'image' => false, 'hint' => '', 'download' => null])
 
 <div class="form-group">
     <label>{{$title}}@if($required) <span class="text-danger">*</span>@endif</label>
@@ -21,9 +21,9 @@
             <a href="/uploads/{{$model[$field]}}" target="_blank">
                 <img class="mt-2" src="/uploads/{{$model[$field]}}" alt="">
             </a>
-        @else
-            <a class="mt-2 d-block" href="/uploads/{{$model[$field]}}" target="_blank">
-                {{$model[$field]}}
+        @elseif($download)
+            <a class="mt-2 d-block" href="{{$download}}" target="_blank">
+                تنزيل الملف
             </a>
         @endif
     @endif

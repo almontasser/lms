@@ -21,8 +21,8 @@
                         <!-- For more info and examples you can check out http://dimsemenov.com/plugins/magnific-popup/ -->
                         <div class="row gutters-tiny js-gallery img-fluid-100">
                             <div class="col-12 mb-3">
-                                <a class="img-link img-link-zoom-in img-lightbox" href="/uploads/{{$book->thumbnail}}">
-                                    <img class="img-fluid" src="/uploads/{{$book->thumbnail}}" alt="">
+                                <a class="img-link img-link-zoom-in img-lightbox" href="{{$book->getCover()}}">
+                                    <img class="img-fluid" src="{{$book->getCover()}}" alt="">
                                 </a>
                             </div>
                         </div>
@@ -179,6 +179,23 @@
                                         {{$book->rack}}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td style="vertical-align: middle;">
+                                        باركود الكتاب
+                                    </td>
+                                    <td>
+                                        <div class="barcode" style="display: inline">
+                                            <?php
+                                            $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+                                            $barcode = base64_encode($generator->getBarcode($book->barcode, $generator::TYPE_CODE_128, 1, 50));
+                                            echo '<img src="data:image/png;base64,' . $barcode . '">';
+                                            ?>
+                                        </div>
+                                        <button type="button" class="btn btn-sm btn-primary mr-2" onclick="printJS({printable: 'data:image/png;base64,<?= $barcode ?>', type: 'image', base64: true, maxWidth: 100})">
+                                            طباعة
+                                         </button>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -186,32 +203,32 @@
 
                         <!-- Comments -->
                         <div class="tab-pane pull-x font-size-sm" id="ecom-product-comments" role="tabpanel">
-{{--                            <div class="media push">--}}
-{{--                                <a class="ml-3" href="javascript:void(0)">--}}
-{{--                                    <img class="img-avatar img-avatar32" src="/media/avatars/avatar10.jpg" alt="">--}}
-{{--                                </a>--}}
-{{--                                <div class="media-body">--}}
-{{--                                    <a class="font-w600" href="javascript:void(0)">محمود المنتصر</a>--}}
-{{--                                    <mark class="font-w600 text-danger">مدير</mark>--}}
-{{--                                    <p class="my-1">كتاب جيد جدا، ومحتواه رائع!</p>--}}
-{{--                                    <a class="ml-1" href="javascript:void(0)">إعجاب</a>--}}
-{{--                                    <a class="ml-1" href="javascript:void(0)">رد</a>--}}
-{{--                                    <span class="text-muted"><em>منذ 10 دقائق</em></span>--}}
-{{--                                    <div class="media mt-3">--}}
-{{--                                        <a class="ml-3" href="javascript:void(0)">--}}
-{{--                                            <img class="img-avatar img-avatar32" src="/media/avatars/avatar10.jpg"--}}
-{{--                                                 alt="">--}}
-{{--                                        </a>--}}
-{{--                                        <div class="media-body">--}}
-{{--                                            <a class="font-w600" href="javascript:void(0)">محمد محمد</a>--}}
-{{--                                            <p class="my-1">شكرا لك</p>--}}
-{{--                                            <a class="ml-1" href="javascript:void(0)">إعجاب</a>--}}
-{{--                                            <a class="ml-1" href="javascript:void(0)">رد</a>--}}
-{{--                                            <span class="text-muted"><em>منذ 5 دقائق</em></span>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
+                            {{--                            <div class="media push">--}}
+                            {{--                                <a class="ml-3" href="javascript:void(0)">--}}
+                            {{--                                    <img class="img-avatar img-avatar32" src="/media/avatars/avatar10.jpg" alt="">--}}
+                            {{--                                </a>--}}
+                            {{--                                <div class="media-body">--}}
+                            {{--                                    <a class="font-w600" href="javascript:void(0)">محمود المنتصر</a>--}}
+                            {{--                                    <mark class="font-w600 text-danger">مدير</mark>--}}
+                            {{--                                    <p class="my-1">كتاب جيد جدا، ومحتواه رائع!</p>--}}
+                            {{--                                    <a class="ml-1" href="javascript:void(0)">إعجاب</a>--}}
+                            {{--                                    <a class="ml-1" href="javascript:void(0)">رد</a>--}}
+                            {{--                                    <span class="text-muted"><em>منذ 10 دقائق</em></span>--}}
+                            {{--                                    <div class="media mt-3">--}}
+                            {{--                                        <a class="ml-3" href="javascript:void(0)">--}}
+                            {{--                                            <img class="img-avatar img-avatar32" src="/media/avatars/avatar10.jpg"--}}
+                            {{--                                                 alt="">--}}
+                            {{--                                        </a>--}}
+                            {{--                                        <div class="media-body">--}}
+                            {{--                                            <a class="font-w600" href="javascript:void(0)">محمد محمد</a>--}}
+                            {{--                                            <p class="my-1">شكرا لك</p>--}}
+                            {{--                                            <a class="ml-1" href="javascript:void(0)">إعجاب</a>--}}
+                            {{--                                            <a class="ml-1" href="javascript:void(0)">رد</a>--}}
+                            {{--                                            <span class="text-muted"><em>منذ 5 دقائق</em></span>--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
+                            {{--                                </div>--}}
+                            {{--                            </div>--}}
                             <div class="pb-2 pr-2">لا يوجد أي تعليقات</div>
                             @auth
                                 <form action="" method="POST">
@@ -228,106 +245,40 @@
                             <div class="block block-rounded bg-body-light">
                                 <div class="block-content text-center">
                                     <p class="text-warning mb-2">
-                                        <i class="fa fa-star fa-2x"></i>
-                                        <i class="fa fa-star fa-2x"></i>
-                                        <i class="fa fa-star fa-2x"></i>
-                                        <i class="fa fa-star fa-2x"></i>
-                                        <i class="fa fa-star-o fa-2x"></i>
+                                        {{-- Empty Star "far fa-star", Half Star "fa fa-star-half-alt", Full Star "fa fa-star" --}}
+                                        <i class="far fa-star fa-2x"></i>
+                                        <i class="far fa-star fa-2x"></i>
+                                        <i class="far fa-star fa-2x"></i>
+                                        <i class="far fa-star fa-2x"></i>
+                                        <i class="far fa-star fa-2x"></i>
                                     </p>
                                     <p>
-                                        <strong>5.0</strong>/4.0 من <strong>5</strong> مراجعات
+                                        {{--                                        <strong>3.5</strong>/5.0 من <strong>5</strong> مراجعات--}}
+                                        لا يوجد مراجعات
                                     </p>
                                 </div>
                             </div>
                             <!-- END Average Rating -->
 
                             <!-- Ratings -->
-                            <div class="media push">
-                                <a class="mr-3" href="javascript:void(0)">
-                                    {{--                                    <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar11.jpg" alt="">--}}
-                                </a>
-                                <div class="media-body">
-                                                        <span class="text-warning">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </span>
-                                    <a class="font-w600" href="javascript:void(0)">Jack Estrada</a>
-                                    <p class="my-1">Awesome Quality!</p>
-                                    <span class="text-muted"><em>2 hours ago</em></span>
-                                </div>
-                            </div>
-                            <div class="media push">
-                                <a class="mr-3" href="javascript:void(0)">
-                                    {{--                                    <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar1.jpg" alt="">--}}
-                                </a>
-                                <div class="media-body">
-                                                        <span class="text-warning">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </span>
-                                    <a class="font-w600" href="javascript:void(0)">Lori Moore</a>
-                                    <p class="my-1">So cool badges!</p>
-                                    <span class="text-muted"><em>5 hours ago</em></span>
-                                </div>
-                            </div>
-                            <div class="media push">
-                                <a class="mr-3" href="javascript:void(0)">
-                                    {{--                                    <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar15.jpg" alt="">--}}
-                                </a>
-                                <div class="media-body">
-                                                        <span class="text-warning">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </span>
-                                    <a class="font-w600" href="javascript:void(0)">Jose Wagner</a>
-                                    <p class="my-1">They look great, thank you!</p>
-                                    <span class="text-muted"><em>15 hours ago</em></span>
-                                </div>
-                            </div>
-                            <div class="media push">
-                                <a class="mr-3" href="javascript:void(0)">
-                                    {{--                                    <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar13.jpg" alt="">--}}
-                                </a>
-                                <div class="media-body">
-                                                        <span class="text-warning">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </span>
-                                    <a class="font-w600" href="javascript:void(0)">Jack Estrada</a>
-                                    <p class="my-1">Badges for life!</p>
-                                    <span class="text-muted"><em>20 hours ago</em></span>
-                                </div>
-                            </div>
-                            <div class="media push">
-                                <a class="mr-3" href="javascript:void(0)">
-                                    {{--                                    <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar1.jpg" alt="">--}}
-                                </a>
-                                <div class="media-body">
-                                                        <span class="text-warning">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </span>
-                                    <a class="font-w600" href="javascript:void(0)">Lisa Jenkins</a>
-                                    <p class="my-1">So good, keep it up!</p>
-                                    <span class="text-muted"><em>22 hours ago</em></span>
-                                </div>
-                            </div>
-                            <!-- END Ratings -->
+                        {{--                            <div class="media push">--}}
+                        {{--                                <a class="ml-3" href="javascript:void(0)">--}}
+                        {{--                                    <img class="img-avatar img-avatar32" src="/media/avatars/avatar10.jpg" alt="">--}}
+                        {{--                                </a>--}}
+                        {{--                                <div class="media-body">--}}
+                        {{--                                    <span class="text-warning">--}}
+                        {{--                                        <i class="fa fa-star"></i>--}}
+                        {{--                                        <i class="fa fa-star"></i>--}}
+                        {{--                                        <i class="fa fa-star"></i>--}}
+                        {{--                                        <i class="fa fa-star"></i>--}}
+                        {{--                                        <i class="fa fa-star"></i>--}}
+                        {{--                                    </span>--}}
+                        {{--                                    <a class="font-w600" href="javascript:void(0)">محمود المنتصر</a>--}}
+                        {{--                                    <p class="my-1">كتاب رائع</p>--}}
+                        {{--                                    <span class="text-muted"><em>منذ 4 ساعات</em></span>--}}
+                        {{--                                </div>--}}
+                        {{--                            </div>--}}
+                        <!-- END Ratings -->
                         </div>
                         <!-- END Reviews -->
                     </div>

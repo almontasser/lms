@@ -24,3 +24,28 @@ function add_query_params(array $params = [])
 
     return url()->current() . '?' . http_build_query($query); // rebuild the URL with the new parameters array
 }
+
+function generateRandomString($length = 10)
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+function sanitize_file_name(string $filename)
+{
+    // Remove anything which isn't a word, whitespace, number
+    // or any of the following caracters -_~,;[]().
+    // If you don't need to handle multi-byte characters
+    // you can use preg_replace rather than mb_ereg_replace
+    // Thanks @Łukasz Rysiak!
+    $filename = mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $filename);
+    // Remove any runs of periods (thanks falstro!)
+    $filename = mb_ereg_replace("([\.]{2,})", '', $filename);
+
+    return $filename;
+}

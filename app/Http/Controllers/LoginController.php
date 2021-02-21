@@ -27,7 +27,7 @@ class LoginController extends Controller
             return redirect()->route('login-inactive');
         }
 
-        if ($user->isBanend()) {
+        if ($user->isBanned()) {
             return redirect()->route('login-banned');
         }
 
