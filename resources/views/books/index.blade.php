@@ -11,12 +11,12 @@
                 <thead>
                 <tr>
                     <th class="text-center" style="width: 80px;">#</th>
-                    <th>العنوان</th>
-                    <th class="d-none d-sm-table-cell">الكاتب</th>
-                    <th class="d-none d-sm-table-cell">دار النشر</th>
-                    <th class="d-none d-sm-table-cell">رقم الطبعة</th>
-                    <th class="d-none d-sm-table-cell">ISBN</th>
-                    <th>أوامر</th>
+                    <th class="text-center">العنوان</th>
+                    <th class="d-none d-sm-table-cell text-center">الكاتب</th>
+                    <th class="d-none d-sm-table-cell text-center">دار النشر</th>
+                    <th class="d-none d-sm-table-cell text-center">رقم الطبعة</th>
+                    <th class="d-none d-sm-table-cell text-center">ISBN</th>
+                    <th class="text-center">أوامر</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -38,8 +38,11 @@
                         <td class="d-none d-sm-table-cell">
                             {{ $book->ISBN }}
                         </td>
-                        <td>
-
+                        <td class="text-center">
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-alt-light"><i class="fa fa-print"></i></button>
+                                <a class="btn btn-sm btn-alt-light" href="{{ route('book-edit', [$book]) }}"><i class="fa fa-fw fa-edit"></i></a>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

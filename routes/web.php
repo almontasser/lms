@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarcodeController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\SpecialtyController;
 use Illuminate\Support\Facades\Route;
@@ -68,6 +69,8 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('json/specialties/insert', [SpecialtyController::class, 'json_store'])->name('json-specialties-insert');
     Route::post('json/specialties/get', [SpecialtyController::class, 'json_get'])->name('json-specialties-get');
 });
+
+Route::get('barcode/{barcode}', [BarcodeController::class, 'find_barcode'])->name('find-barcode');
 
 
 // Route::group(['middleware' => ['admin']], function () {

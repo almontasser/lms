@@ -36,6 +36,28 @@ function generateRandomString($length = 10)
     return $randomString;
 }
 
+function generateEAN13($start)
+{
+    $digits = '0123456789';
+    $digitsLength = strlen($digits);
+    $result = $start;
+    while (strlen($result) < 12) {
+        $result .= $digits[rand(0, $digitsLength - 1)];
+    }
+
+    // Checksum
+    $sum = 0;
+    $weightflag = true;
+    for ($i = strlen($result) - 1; $i >= 0; $i--)
+    {
+        $sum += (int)$result[$i] * ($weightflag?3:1);
+        $weightflag = !$weightflag;
+    }
+    $result .= (10 - ($sum % 10)) % 10;
+
+    return $result;
+}
+
 function sanitize_file_name(string $filename)
 {
     // Remove anything which isn't a word, whitespace, number

@@ -184,16 +184,19 @@
                                         باركود الكتاب
                                     </td>
                                     <td>
-                                        <div class="barcode" style="display: inline">
+                                        <div class="barcode text-center" style="display: inline-block">
                                             <?php
                                             $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-                                            $barcode = base64_encode($generator->getBarcode($book->barcode, $generator::TYPE_CODE_128, 1, 50));
-                                            echo '<img src="data:image/png;base64,' . $barcode . '">';
+                                            $barcode = $book->barcode;
+                                            $barcodeImage = base64_encode($generator->getBarcode($barcode, $generator::TYPE_EAN_13, 2, 75));
+                                            echo '<img src="data:image/png;base64,' . $barcodeImage . '">';
+                                            echo '<p class="text-center mb-0">' . $barcode . '</p>';
                                             ?>
+                                            <button type="button" class="btn btn-sm btn-primary"
+                                                onclick="printBarcode('<?= $barcodeImage ?>', '<?= $barcode ?>');">
+                                                طباعة
+                                            </button>
                                         </div>
-                                        <button type="button" class="btn btn-sm btn-primary mr-2" onclick="printJS({printable: 'data:image/png;base64,<?= $barcode ?>', type: 'image', base64: true, maxWidth: 100})">
-                                            طباعة
-                                         </button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -203,32 +206,32 @@
 
                         <!-- Comments -->
                         <div class="tab-pane pull-x font-size-sm" id="ecom-product-comments" role="tabpanel">
-                            {{--                            <div class="media push">--}}
-                            {{--                                <a class="ml-3" href="javascript:void(0)">--}}
-                            {{--                                    <img class="img-avatar img-avatar32" src="/media/avatars/avatar10.jpg" alt="">--}}
-                            {{--                                </a>--}}
-                            {{--                                <div class="media-body">--}}
-                            {{--                                    <a class="font-w600" href="javascript:void(0)">محمود المنتصر</a>--}}
-                            {{--                                    <mark class="font-w600 text-danger">مدير</mark>--}}
-                            {{--                                    <p class="my-1">كتاب جيد جدا، ومحتواه رائع!</p>--}}
-                            {{--                                    <a class="ml-1" href="javascript:void(0)">إعجاب</a>--}}
-                            {{--                                    <a class="ml-1" href="javascript:void(0)">رد</a>--}}
-                            {{--                                    <span class="text-muted"><em>منذ 10 دقائق</em></span>--}}
-                            {{--                                    <div class="media mt-3">--}}
-                            {{--                                        <a class="ml-3" href="javascript:void(0)">--}}
-                            {{--                                            <img class="img-avatar img-avatar32" src="/media/avatars/avatar10.jpg"--}}
-                            {{--                                                 alt="">--}}
-                            {{--                                        </a>--}}
-                            {{--                                        <div class="media-body">--}}
-                            {{--                                            <a class="font-w600" href="javascript:void(0)">محمد محمد</a>--}}
-                            {{--                                            <p class="my-1">شكرا لك</p>--}}
-                            {{--                                            <a class="ml-1" href="javascript:void(0)">إعجاب</a>--}}
-                            {{--                                            <a class="ml-1" href="javascript:void(0)">رد</a>--}}
-                            {{--                                            <span class="text-muted"><em>منذ 5 دقائق</em></span>--}}
-                            {{--                                        </div>--}}
-                            {{--                                    </div>--}}
-                            {{--                                </div>--}}
-                            {{--                            </div>--}}
+                            {{-- <div class="media push">
+                                <a class="ml-3" href="javascript:void(0)">
+                                    <img class="img-avatar img-avatar32" src="/media/avatars/avatar10.jpg" alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="font-w600" href="javascript:void(0)">محمود المنتصر</a>
+                                    <mark class="font-w600 text-danger">مدير</mark>
+                                    <p class="my-1">كتاب جيد جدا، ومحتواه رائع!</p>
+                                    <a class="ml-1" href="javascript:void(0)">إعجاب</a>
+                                    <a class="ml-1" href="javascript:void(0)">رد</a>
+                                    <span class="text-muted"><em>منذ 10 دقائق</em></span>
+                                    <div class="media mt-3">
+                                        <a class="ml-3" href="javascript:void(0)">
+                                            <img class="img-avatar img-avatar32" src="/media/avatars/avatar10.jpg"
+                                                alt="">
+                                        </a>
+                                        <div class="media-body">
+                                            <a class="font-w600" href="javascript:void(0)">محمد محمد</a>
+                                            <p class="my-1">شكرا لك</p>
+                                            <a class="ml-1" href="javascript:void(0)">إعجاب</a>
+                                            <a class="ml-1" href="javascript:void(0)">رد</a>
+                                            <span class="text-muted"><em>منذ 5 دقائق</em></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> --}}
                             <div class="pb-2 pr-2">لا يوجد أي تعليقات</div>
                             @auth
                                 <form action="" method="POST">

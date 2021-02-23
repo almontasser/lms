@@ -25,8 +25,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" id="css-main" href="{{ mix('/css/oneui.css') }}">
 
-    <link rel="stylesheet" id="css-main" href="{{ asset('/css/print.min.css') }}">
-
     <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
 <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('/css/themes/amethyst.css') }}"> -->
 @yield('css_after')
@@ -680,7 +678,7 @@
 <script src="{{ mix('js/oneui.app.js') }}"></script>
 
 <script src="{{asset('js/plugins/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
-<script src="{{ asset('js/print.min.js') }}"></script>
+<script src="{{ asset('js/scripts.js') }}"></script>
 @yield('js_after')
 </body>
 
