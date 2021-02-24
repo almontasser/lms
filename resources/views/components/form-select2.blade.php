@@ -39,6 +39,17 @@
                 {{--$('#{{$field}}').select2().trigger('change');--}}
             });
             @endif
+
+            $('#modal-{{$field}}').keypress(e => {
+                if (e.which === 13) {
+                    e.preventDefault()
+                    insert_{{$field}}_click();
+                }
+            })
+
+            $('#modal-{{$field}}').on('shown.bs.modal', function (e) {
+                $('#{{$field}}_name').focus();
+            });
         });
     });
 </script>
@@ -85,18 +96,29 @@
                         $.post('{{ $insertRoute }}', {
                             _token,
                             name
-                        }).done(() => {
-                            One.helpers('notify', {
-                                type: 'success',
-                                icon: 'fa fa-check mr-1',
-                                message: 'تمت الإضافة بنجاح'
-                            });
+                        }).done((e) => {
+                            if (e.success) {
+                                One.helpers('notify', {
+                                    type: 'success',
+                                    icon: 'fa fa-check mr-1',
+                                    message: 'تمت الإضافة بنجاح'
+                                });
+                                $('#modal-{{$field}}').modal('hide');
+                            } else {
+                                One.helpers('notify', {
+                                    type: 'danger',
+                                    icon: 'fa fa-exclamation mr-1',
+                                    message: e.error
+                                });
+                            }
+                        }).catch((e) => {
+                            console.log('ERROR');
                         });
 
                     }
                 </script>
                 <div class="block-content block-content-full text-right border-top">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    <button type="button" class="btn btn-primary"
                             onclick="insert_{{$field}}_click()">إضافة
                     </button>
                     <button type="button" class="btn btn-alt-primary mr-1" data-dismiss="modal">إغلاق</button>

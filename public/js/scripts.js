@@ -7,21 +7,37 @@ function printBarcode(base64, barcode) {
 
 let capturing = false
 let barcode = ''
+
+function gotoBarcode() {
+    window.location.href = '/barcode/' + barcode
+}
+
+function resetBarcodeInput() {
+    capturing = false
+    barcode = ''
+}
+
 document.onkeydown=function(e){
     if (e.key === 'F9') {
         e.preventDefault()
         capturing = true
         barcode = ''
+        $('#modal-barcode-input').modal('show');
     }
 
-    if (capturing && (e.key >= '0') && (e.key <= '9')) {
-        e.preventDefault()
-        barcode += e.key
-    }
-
-    if ((e.key === 'Enter')) {
-        e.preventDefault()
-        capturing = false
-        window.location.href = '/barcode/' + barcode
+    if (capturing) {
+        if ((e.key >= '0') && (e.key <= '9')) {
+            e.preventDefault()
+            barcode += e.key
+            $('#barcode-scan-input').val(barcode)
+        } else if (e.key === 'Enter') {
+            e.preventDefault()
+            capturing = false
+            gotoBarcode()
+        } else if (e.key === 'Escape') {
+            resetBarcodeInput()
+        } else {
+            e.preventDefault()
+        }
     }
 }

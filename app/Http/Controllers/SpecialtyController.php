@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Specialty;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class SpecialtyController extends Controller
@@ -24,8 +25,20 @@ class SpecialtyController extends Controller
             'name' => 'required'
         ]);
 
-        Specialty::create($request->only(['name']));
+        try {
+            Specialty::create($request->only(['name']));
+        } catch (QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == 1062){
+                return response()->json([
+                    "success" => false,
+                    "error" => "ااسم التخصص الذي ادخلته موجود مسبقا"
+                ]);
+            }
+        }
 
-        return null;
+        return response()->json([
+            "success" => true
+        ]);
     }
 }

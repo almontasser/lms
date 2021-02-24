@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Field;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class FieldController extends Controller
@@ -24,8 +25,20 @@ class FieldController extends Controller
             'name' => 'required'
         ]);
 
-        Field::create($request->only(['name']));
+        try {
+            Field::create($request->only(['name']));
+        } catch (QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == 1062){
+                return response()->json([
+                    "success" => false,
+                    "error" => "ااسم المجال الذي ادخلته موجود مسبقا"
+                ]);
+            }
+        }
 
-        return null;
+        return response()->json([
+            "success" => true
+        ]);
     }
 }

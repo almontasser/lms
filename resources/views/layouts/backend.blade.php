@@ -671,6 +671,8 @@
         </div>
     </footer>
     <!-- END Footer -->
+
+    <x-barcode-input-modal/>
 </div>
 <!-- END Page Container -->
 

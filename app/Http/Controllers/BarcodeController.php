@@ -13,8 +13,8 @@ class BarcodeController extends Controller
 
             if ($barcode[0] = '1') {
                 // BOOK
-                $book_barcode = $barcode;
-                $book_barcode[1] = '0';
+                // Get Book
+                $book_barcode = substr_replace($barcode, '00', 1, 2);
                 $book = Book::where('barcode', $book_barcode)->first();
                 if (isset($book)) {
                     return redirect()->route('book-show', [$book]);

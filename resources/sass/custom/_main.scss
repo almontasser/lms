@@ -51,3 +51,8 @@ div.dataTables_wrapper {
         border-bottom-left-radius: 0;
     }
 }
+
+body.modal-open {
+    overflow: auto;
+    padding-right: 0 !important;
+}

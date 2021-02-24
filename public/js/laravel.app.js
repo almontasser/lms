@@ -19332,13 +19332,6 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-window.printBarcode = function (base64) {
-  var popupWin = window.open();
-  popupWin.document.open();
-  popupWin.document.write('<html><head><style></style></head><body onload="window.print()"><img src="data:image/png;base64,' + base64 + '"></img></body></html>');
-  popupWin.document.close();
-};
-
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

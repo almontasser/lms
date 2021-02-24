@@ -26219,3 +26219,8 @@ div.dataTables_wrapper div.dataTables_filter input {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
+
+body.modal-open {
+  overflow: auto;
+  padding-right: 0 !important;
+}

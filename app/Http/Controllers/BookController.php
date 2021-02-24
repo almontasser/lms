@@ -60,7 +60,7 @@ class BookController extends Controller
             'edition', 'ISBN', 'category', 'price', 'row', 'col', 'rack', 'notes', 'description']);
 
         do {
-            $inputs['barcode'] = generateEAN13('10');
+            $inputs['barcode'] = generateEAN13('100');
         } while (!Book::where('barcode', $inputs['barcode'])->get()->isEmpty());
 
         if ($request->hasFile('file')) {
