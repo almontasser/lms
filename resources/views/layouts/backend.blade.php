@@ -40,6 +40,7 @@
 </head>
 
 <body>
+    <div id="page-loader" class="show"></div>
 <!-- Page Container -->
 <!--
         Available classes for #page-container:
