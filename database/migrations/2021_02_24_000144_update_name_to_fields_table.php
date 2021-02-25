@@ -6,27 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 class UpdateNameToFieldsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::table('fields', function (Blueprint $table) {
-            $table->string('name')->unique()->change();
-        });
-    }
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::table('fields', function (Blueprint $table) {
+      $table->string('name')->unique()->change();
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('fields', function (Blueprint $table) {
-            $table->string('name')->change();
-        });
-    }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::table('fields', function (Blueprint $table) {
+      $table->string('name')->change();
+    });
+  }
 }

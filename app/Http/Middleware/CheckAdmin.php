@@ -9,21 +9,21 @@ use Illuminate\Support\Facades\Auth;
 
 class CheckAdmin
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
-    public function handle(Request $request, Closure $next)
-    {
-        /** @var User $user */
-        $user = Auth::user();
-        if (!$user || !$user->isAdmin()) {
-            return redirect()->route('home');
-        }
-
-        return $next($request);
+  /**
+   * Handle an incoming request.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  \Closure  $next
+   * @return mixed
+   */
+  public function handle(Request $request, Closure $next)
+  {
+    /** @var User $user */
+    $user = Auth::user();
+    if (!$user || !$user->isAdmin()) {
+      return redirect()->route('home');
     }
+
+    return $next($request);
+  }
 }

@@ -6,29 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 class AddBarcodeToBooksTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::table('books', function (Blueprint $table) {
-            $table->dropColumn('QR');
-            $table->string('barcode')->unique();
-        });
-    }
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::table('books', function (Blueprint $table) {
+      $table->dropColumn('QR');
+      $table->string('barcode')->unique();
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('books', function (Blueprint $table) {
-            $table->dropColumn('barcode');
-            $table->string('QR');
-        });
-    }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::table('books', function (Blueprint $table) {
+      $table->dropColumn('barcode');
+      $table->string('QR');
+    });
+  }
 }

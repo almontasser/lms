@@ -6,30 +6,30 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateBookInstancesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('book_instances', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('book_id');
-            $table->string('barcode')->unique();
-            $table->timestamps();
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::create('book_instances', function (Blueprint $table) {
+      $table->id();
+      $table->unsignedBigInteger('book_id');
+      $table->string('barcode')->unique();
+      $table->timestamps();
 
-            $table->foreign('book_id')->references('id')->on('books');
-        });
-    }
+      $table->foreign('book_id')->references('id')->on('books');
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('book_instances');
-    }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('book_instances');
+  }
 }
