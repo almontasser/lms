@@ -46,4 +46,8 @@ class Book extends Model
   {
     return $this->thumbnail ? '/uploads/' . $this->thumbnail : '/media/no_cover.jpg';
   }
+
+  public function bookInstances(){
+    return $this->hasMany(BookInstance::class);
+  }
 }

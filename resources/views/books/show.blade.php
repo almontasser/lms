@@ -50,18 +50,18 @@
       <div class="block block-rounded">
         <ul class="nav nav-tabs nav-tabs-alt align-items-center pr-0" data-toggle="tabs" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" href="#ecom-product-info">معلومات</a>
+            <a class="nav-link active" href="#book-info">معلومات</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#ecom-product-comments">تعليقات</a>
+            <a class="nav-link" href="#book-comments">تعليقات</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#ecom-product-reviews">مراجعات</a>
+            <a class="nav-link" href="#book-reviews">مراجعات</a>
           </li>
         </ul>
         <div class="block-content tab-content">
           <!-- Info -->
-          <div class="tab-pane pull-x active" id="ecom-product-info" role="tabpanel">
+          <div class="tab-pane pull-x active" id="book-info" role="tabpanel">
             <table class="table table-striped table-borderless">
               <thead>
                 <tr>
@@ -158,6 +158,7 @@
                     {{$book->rack}}
                   </td>
                 </tr>
+                @isAdmin()
                 <tr>
                   <td style="vertical-align: middle;">
                     باركود الكتاب
@@ -165,26 +166,26 @@
                   <td>
                     <div class="barcode text-center" style="display: inline-block">
                       <?php
-                                            $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-                                            $barcode = $book->barcode;
-                                            $barcodeImage = base64_encode($generator->getBarcode($barcode, $generator::TYPE_EAN_13, 2, 75));
-                                            echo '<img src="data:image/png;base64,' . $barcodeImage . '">';
-                                            echo '<p class="text-center mb-0">' . $barcode . '</p>';
-                                            ?>
+                        $barcode = $book->barcode;
+                        $barcodeImage = generateBarcodeImage($barcode);
+                        echo '<img src="data:image/png;base64,' . $barcodeImage . '">';
+                        echo '<p class="text-center mb-0">' . $barcode . '</p>';
+                        ?>
                       <button type="button" class="btn btn-sm btn-primary"
-                        onclick="printBarcode('<?= $barcodeImage ?>', '<?= $barcode ?>');">
+                        onclick="printBarcode(['<?= $barcodeImage ?>'], ['<?= $barcode ?>']);">
                         طباعة
                       </button>
                     </div>
                   </td>
                 </tr>
+                @endisAdmin()
               </tbody>
             </table>
           </div>
           <!-- END Info -->
 
           <!-- Comments -->
-          <div class="tab-pane pull-x font-size-sm" id="ecom-product-comments" role="tabpanel">
+          <div class="tab-pane pull-x font-size-sm" id="book-comments" role="tabpanel">
             {{-- <div class="media push">
                                 <a class="ml-3" href="javascript:void(0)">
                                     <img class="img-avatar img-avatar32" src="/media/avatars/avatar10.jpg" alt="">
@@ -221,7 +222,7 @@
           <!-- END Comments -->
 
           <!-- Reviews -->
-          <div class="tab-pane pull-x font-size-sm" id="ecom-product-reviews" role="tabpanel">
+          <div class="tab-pane pull-x font-size-sm" id="book-reviews" role="tabpanel">
             <!-- Average Rating -->
             <div class="block block-rounded bg-body-light">
               <div class="block-content text-center">

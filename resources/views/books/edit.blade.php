@@ -20,7 +20,7 @@
 @section('css_after')
 <style>
   .select2-container {
-    width: calc(100% - 34px) !important;
+    width: calc(100% - 37px) !important;
   }
 </style>
 @endsection

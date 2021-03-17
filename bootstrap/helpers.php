@@ -36,6 +36,20 @@ function generateRandomString($length = 10)
   return $randomString;
 }
 
+function generateEAN13Checksum($barcode)
+{
+  $result = $barcode;
+  // Checksum
+  $sum = 0;
+  $weightflag = true;
+  for ($i = strlen($result) - 1; $i >= 0; $i--) {
+    $sum += (int)$result[$i] * ($weightflag ? 3 : 1);
+    $weightflag = !$weightflag;
+  }
+  $result .= (10 - ($sum % 10)) % 10;
+  return $result;
+}
+
 function generateEAN13($start)
 {
   $digits = '0123456789';
@@ -45,16 +59,15 @@ function generateEAN13($start)
     $result .= $digits[rand(0, $digitsLength - 1)];
   }
 
-  // Checksum
-  $sum = 0;
-  $weightflag = true;
-  for ($i = strlen($result) - 1; $i >= 0; $i--) {
-    $sum += (int)$result[$i] * ($weightflag ? 3 : 1);
-    $weightflag = !$weightflag;
-  }
-  $result .= (10 - ($sum % 10)) % 10;
+  $result = generateEAN13Checksum($result);
 
   return $result;
+}
+
+function generateBarcodeImage($barcode)
+{
+  $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+  return base64_encode($generator->getBarcode($barcode, $generator::TYPE_EAN_13, 2, 75));
 }
 
 function sanitize_file_name(string $filename)

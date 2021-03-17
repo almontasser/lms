@@ -5,6 +5,7 @@ use App\Http\Controllers\FieldController;
 use App\Http\Controllers\SpecialtyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookInstanceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
@@ -60,6 +61,11 @@ Route::group(['middleware' => ['admin']], function () {
   Route::post('books/insert', [BookController::class, 'store']);
   Route::get('books/edit/{book}', [BookController::class, 'edit'])->name('book-edit');
   Route::post('books/edit/{book}', [BookController::class, 'update']);
+
+  Route::get('books/{book}/instances', [BookInstanceController::class, 'index'])->name('book-instances');
+  Route::post('books/{book}/instances', [BookInstanceController::class, 'store']);
+  Route::get('books/{book}/instances/generate', [BookInstanceController::class, 'show_generate'])->name('book-instances-generate');
+  Route::post('books/{book}/instances/generate', [BookInstanceController::class, 'generate'])->name('book-instances-generate');
 
   Route::post('json/fields', [FieldController::class, 'json_search'])->name('json-fields');
   Route::post('json/fields/insert', [FieldController::class, 'json_store'])->name('json-fields-insert');
