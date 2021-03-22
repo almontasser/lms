@@ -66,8 +66,9 @@
         </x-form-input>
       </div>
       <div class="form-row">
-        <x-form-input field="category" title="التصنيف" :model="$book" required="true" class="col-md-6"></x-form-input>
-        <x-form-input field="price" title="سعر الكتاب" type="number" :model="$book" class="col-md-6"></x-form-input>
+        <x-form-input field="category" title="التصنيف" :model="$book" required="true" class="col-md-4"></x-form-input>
+        <x-form-input field="price" title="سعر الكتاب" type="number" :model="$book" class="col-md-4"></x-form-input>
+        <x-form-input field="lending_days" title="مدة الإعارة (بالأيام)" type="number" :model="$book" class="col-md-4"></x-form-input>
       </div>
       <div class="form-row">
         <x-form-input field="row" title="الصف" type="number" :model="$book" class="col-md-4"></x-form-input>
