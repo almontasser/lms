@@ -39,13 +39,14 @@
         <div class="block-content block-content-full">
           <div class="row items-push">
             <div class="col-lg-8 col-xl-5">
-              <x-form-input field="name" title="الإسم" :model='$user' />
-              <x-form-input field="email" title="البريد الإلكتروني" :model='$user' />
-              <x-form-input field="id_number" title="رقم القيد أو الرقم الوظيفي" :model='$user' />
-              <x-form-input field="position" title="الصفة" :model='$user' />
+              <x-form-input field="name" required="true" title="الإسم" :model='$user' />
+              <x-form-input field="email" type="email" required="true" title="البريد الإلكتروني" :model='$user' />
+              <x-form-input field="phone" required="true" title="رقم الهاتف" :model='$user' />
+              <x-form-input field="id_number" required="true" title="رقم القيد أو الرقم الوظيفي" :model='$user' />
+              <x-form-input field="position" required="true" title="الصفة" :model='$user' />
               <div class="form-group">
                 <label for="type">الصلاحية <span class="text-danger">*</span></label>
-                <select class="form-control @error('type') is-invalid @enderror" id="type" name="type">
+                <select class="form-control @error('type') is-invalid @enderror" id="type" name="type" required="true">
                   <option value="">رجاء اختر الصلاحية</option>
                   <option <?php checkSelected('type', 0, $user); ?> value="0">
                     غير مفعل
