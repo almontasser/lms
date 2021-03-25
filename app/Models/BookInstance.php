@@ -20,4 +20,9 @@ class BookInstance extends Model
   {
     return $this->belongsTo(Book::class);
   }
+
+  public function movements()
+  {
+    return $this->hasMany(BookInstanceMovement::class);
+  }
 }

@@ -40,6 +40,7 @@ class BookController extends Controller
       'ISBN' => 'required|max:50',
       'category' => 'required|max:255',
       'price' => '',
+      'lending_days' => 'required|max:1',
       'row' => '',
       'col' => '',
       'rack' => '',
@@ -58,7 +59,8 @@ class BookController extends Controller
 
     $inputs = $request->only([
       'title', 'author', 'publisher', 'subject', 'field_id', 'specialty_id', 'print_year',
-      'edition', 'ISBN', 'category', 'price', 'row', 'col', 'rack', 'notes', 'description'
+      'edition', 'ISBN', 'category', 'price', 'row', 'col', 'rack', 'notes', 'description',
+      'lending_days'
     ]);
 
     do {
@@ -104,7 +106,8 @@ class BookController extends Controller
 
     $inputs = $request->only([
       'title', 'author', 'publisher', 'subject', 'field_id', 'specialty_id', 'print_year',
-      'edition', 'ISBN', 'category', 'price', 'row', 'col', 'rack', 'notes', 'description'
+      'edition', 'ISBN', 'category', 'price', 'row', 'col', 'rack', 'notes', 'description',
+      'lending_days'
     ]);
 
     if ($request->hasFile('file')) {

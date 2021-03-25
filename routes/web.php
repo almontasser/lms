@@ -56,6 +56,8 @@ Route::group(['middleware' => ['admin']], function () {
   Route::get('users/edit/{user}', [UserController::class, 'edit'])->name('users-edit');
   Route::put('users/edit/{user}', [UserController::class, 'update']);
 
+  Route::get('users/get/{id}', [UserController::class, 'get'])->name('users-get');
+
   Route::get('/books/index', [BookController::class, 'index'])->name('books');
   Route::get('books/insert', [BookController::class, 'create'])->name('books-insert');
   Route::post('books/insert', [BookController::class, 'store']);
@@ -66,6 +68,10 @@ Route::group(['middleware' => ['admin']], function () {
   Route::post('books/{book}/instances', [BookInstanceController::class, 'store']);
   Route::get('books/{book}/instances/generate', [BookInstanceController::class, 'show_generate'])->name('book-instances-generate');
   Route::post('books/{book}/instances/generate', [BookInstanceController::class, 'generate'])->name('book-instances-generate');
+
+  Route::post('books/instance/{book_instance}/lend', [BookInstanceController::class, 'lend'])->name('book-instances-lend');
+  Route::post('books/instance/{book_instance}/return', [BookInstanceController::class, 'return_book'])->name('book-instances-return');
+  Route::get('books/instance/{book_instance}', [BookInstanceController::class, 'show_instance'])->name('book-instance');
 
   Route::post('json/fields', [FieldController::class, 'json_search'])->name('json-fields');
   Route::post('json/fields/insert', [FieldController::class, 'json_store'])->name('json-fields-insert');

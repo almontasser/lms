@@ -109,4 +109,9 @@ class UserController extends Controller
 
     return redirect()->route('users-list');
   }
+
+  public function get(string $id)
+  {
+    return User::where('id_number', $id)->first();
+  }
 }

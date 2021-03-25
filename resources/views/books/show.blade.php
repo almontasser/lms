@@ -10,7 +10,64 @@
   </div>
 </div>
 
+<?php
+$barcode = $book->barcode;
+$barcodeImage = generateBarcodeImage($barcode);
+?>
+
 <div class="content">
+  @isAdmin()
+  <div class="row">
+    <div class="col">
+      <div class="block block-rounded block-link-shadow text-center">
+          <a class="block block-rounded block-link-shadow text-center" href="{{ route('book-edit', [$book]) }}">
+              <div class="block-content block-content-full">
+                  <div class="font-size-h2 text-dark">
+                      <i class="fa fa-pencil-alt"></i>
+                  </div>
+              </div>
+              <div class="block-content py-2 bg-body-light">
+                  <p class="font-w600 font-size-sm text-muted mb-0">
+                      تعديل
+                  </p>
+              </div>
+          </a>
+      </div>
+    </div>
+    <div class="col">
+      <div class="block block-rounded block-link-shadow text-center">
+          <a class="block block-rounded block-link-shadow text-center" href="{{ route('book-instances', [$book]) }}">
+              <div class="block-content block-content-full">
+                  <div class="font-size-h2 text-dark">
+                      <i class="fa fa-clone"></i>
+                  </div>
+              </div>
+              <div class="block-content py-2 bg-body-light">
+                  <p class="font-w600 font-size-sm text-muted mb-0">
+                      المخزن
+                  </p>
+              </div>
+          </a>
+      </div>
+    </div>
+    <div class="col">
+      <div class="block block-rounded block-link-shadow text-center">
+          <a class="block block-rounded block-link-shadow text-center" href="javascript:printBarcode(['<?= $barcodeImage ?>'], ['<?= $barcode ?>']);">
+              <div class="block-content block-content-full">
+                  <div class="font-size-h2 text-dark">
+                      <i class="fa fa-barcode"></i>
+                  </div>
+              </div>
+              <div class="block-content py-2 bg-body-light">
+                  <p class="font-w600 font-size-sm text-muted mb-0">
+                      طباعة باركود
+                  </p>
+              </div>
+          </a>
+      </div>
+    </div>
+  </div>
+  @endisAdmin()
   <div class="block block-rounded">
     <div class="block-content">
       <!-- Vitals -->
@@ -35,8 +92,9 @@
               <h2 class="h4 font-w400 mb-0">{{$book->author}}</h2>
             </div>
             <div>
-              <div class="font-size-sm font-w600 text-success text-left">متوفر</div>
-              <div class="font-size-sm text-muted text-left">20 نسخة</div>
+              <?php $count = $book->bookInstances->where('status', 'available')->count() ?>
+              <div class="font-size-sm font-w600 {{$count > 0 ? 'text-success' : 'text-danger'}} text-left">{{ $count > 0 ? 'متوفر' : 'غير متوفر للاعارة'}}</div>
+              <div class="font-size-sm text-muted text-left">{{$count}} نسخة</div>
             </div>
           </div>
           <p class="mt-2">{{$book->description}}</p>
@@ -166,15 +224,9 @@
                   <td>
                     <div class="barcode text-center" style="display: inline-block">
                       <?php
-                        $barcode = $book->barcode;
-                        $barcodeImage = generateBarcodeImage($barcode);
                         echo '<img src="data:image/png;base64,' . $barcodeImage . '">';
                         echo '<p class="text-center mb-0">' . $barcode . '</p>';
                         ?>
-                      <button type="button" class="btn btn-sm btn-primary"
-                        onclick="printBarcode(['<?= $barcodeImage ?>'], ['<?= $barcode ?>']);">
-                        طباعة
-                      </button>
                     </div>
                   </td>
                 </tr>

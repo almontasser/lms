@@ -59,6 +59,8 @@
                         <th class="text-center">رقم النسخة</th>
                         <th class="text-center">الباركود</th>
                         <th class="text-center">الحالة</th>
+                        <th class="text-center">المستعير</th>
+                        <th class="text-center">تاريخ الترجيع</th>
                         <th class="text-center">أوامر</th>
                     </tr>
                 </thead>
@@ -67,12 +69,15 @@
                         <tr>
                             {{-- <td class="text-center">{{ $instance->id }}</td> --}}
                             <td class="text-center">
-                                <a href="#">{{ $instance->instance_number }}</a>
+                                <a href="{{ route('book-instance', ['book_instance' => $instance]) }}">{{ $instance->instance_number }}</a>
                             </td>
                             <td class="text-center">
+                                <a href="{{ route('book-instance', ['book_instance' => $instance]) }}">
                                 {{ $instance->barcode }}
+                                </a>
                             </td>
                             <td class="text-center py-0">
+                                <a href="{{ route('book-instance', ['book_instance' => $instance]) }}">
                                 @if ($instance->status == 'available')
                                     <span class="badge badge-primary py-2" style="width: 100%">متوفر</span>
                                 @elseif($instance->status == 'loaned')
@@ -82,13 +87,29 @@
                                 @elseif($instance->status == 'missing')
                                     <span class="badge badge-danger py-2" style="width: 100%">مفقود</span>
                                 @endif
+                                </a>
                             </td>
                             <td class="text-center">
-                                {{-- <div class="btn-group">
-                                    <button class="btn btn-sm btn-alt-light"><i class="fa fa-print"></i></button>
-                                    <a class="btn btn-sm btn-alt-light" href="{{ route('book-edit', [$book]) }}"><i
-                                            class="fa fa-fw fa-edit"></i></a>
-                                </div> --}}
+                              @if($instance->status == 'loaned')
+                                {{$instance->movements()->orderBy('id', 'DESC')->first()->user->name}}
+                              @endif
+                            </td>
+                            <td class="text-center">
+                              @if($instance->status == 'loaned')
+                                <?php $borrow_end = $instance->movements()->orderBy('id', 'DESC')->first()->borrow_end; ?>
+                                <span class="badge py-2 {{$borrow_end < date('Y-m-d') ? 'badge-danger' : 'badge-success'}}">{{$borrow_end}}</span>
+                              @endif
+                            </td>
+                            <td class="text-center">
+                              <?php
+                              $barcode = $instance->barcode;
+                              $barcodeImage = generateBarcodeImage($barcode);
+                              ?>
+                                <div class="btn-group">
+                                  <a class="btn btn-sm btn-alt-light" href="javascript:printBarcode(['<?= $barcodeImage ?>'], ['<?= $barcode ?>']);">
+                                    <i class="fa fa-print"></i>
+                                  </a>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
