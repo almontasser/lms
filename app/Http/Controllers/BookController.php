@@ -126,7 +126,7 @@ class BookController extends Controller
     // }
 
     if ($request->file('thumbnail')) {
-      $thumbnail = $inputs['barcode'] . '.' . $request->file('thumbnail')->extension();
+      $thumbnail = $book->barcode . '.' . $request->file('thumbnail')->extension();
       $request->file('thumbnail')->move(public_path('uploads'), $thumbnail);
 
       $inputs['thumbnail'] = $thumbnail;
