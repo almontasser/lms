@@ -64,6 +64,8 @@ Route::group(['middleware' => ['admin']], function () {
   Route::get('books/edit/{book}', [BookController::class, 'edit'])->name('book-edit');
   Route::post('books/edit/{book}', [BookController::class, 'update']);
 
+  Route::get('books/json', [BookController::class, 'get_books_json'])->name('books-json');
+
   Route::get('books/{book}/instances', [BookInstanceController::class, 'index'])->name('book-instances');
   Route::post('books/{book}/instances', [BookInstanceController::class, 'store']);
   Route::get('books/{book}/instances/generate', [BookInstanceController::class, 'show_generate'])->name('book-instances-generate');

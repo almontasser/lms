@@ -151,4 +151,10 @@ class BookController extends Controller
     $path = storage_path('app/books/' . $book->file);
     return response()->download($path, sanitize_file_name($book->title . ".pdf"));
   }
+
+  public function get_books_json() {
+    return [
+      'data' => Book::all()->toArray()
+    ];
+  }
 }
