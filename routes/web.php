@@ -82,6 +82,9 @@ Route::group(['middleware' => ['admin']], function () {
   Route::post('json/specialties', [SpecialtyController::class, 'json_search'])->name('json-specialties');
   Route::post('json/specialties/insert', [SpecialtyController::class, 'json_store'])->name('json-specialties-insert');
   Route::post('json/specialties/get', [SpecialtyController::class, 'json_get'])->name('json-specialties-get');
+
+  Route::get('import-books-from-csv', [BookController::class, 'show_import_from_csv'])->name('import-from-csv');
+  Route::post('import-books-from-csv', [BookController::class, 'import_from_csv']);
 });
 
 Route::get('barcode/{barcode}', [BarcodeController::class, 'find_barcode'])->name('find-barcode');

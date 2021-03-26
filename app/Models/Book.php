@@ -30,7 +30,14 @@ class Book extends Model
     'notes',
     'barcode',
     'description',
-    'lending_days'
+    'lending_days',
+    'old_NS',
+    'old_NO',
+    'old_CLA',
+    'old_SUB',
+    'old_CLA1',
+    'old_TYPE',
+    'reviewed'
   ];
 
   public function field()

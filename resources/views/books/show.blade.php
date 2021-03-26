@@ -154,13 +154,13 @@ $barcodeImage = generateBarcodeImage($barcode);
                 <tr>
                   <td>المجال</td>
                   <td>
-                    {{$book->field->name}}
+                    {{$book->field && $book->field->name}}
                   </td>
                 </tr>
                 <tr>
                   <td>التخصص</td>
                   <td>
-                    {{$book->specialty->name}}
+                    {{$book->specialty && $book->specialty->name}}
                   </td>
                 </tr>
                 <tr>

@@ -38,35 +38,35 @@
       @csrf
       <div class="form-row">
         <x-form-input field="title" title="العنوان" :model="$book" required="true" class="col-md-6"></x-form-input>
-        <x-form-input field="author" title="الكاتب" :model="$book" required="true" class="col-md-6"></x-form-input>
+        <x-form-input field="author" title="الكاتب" :model="$book" class="col-md-6"></x-form-input>
       </div>
       <div class="form-row">
 
-        <x-form-input field="publisher" title="دار النشر" :model="$book" required="true" class="col-md-6">
+        <x-form-input field="publisher" title="دار النشر" :model="$book" class="col-md-6">
         </x-form-input>
-        <x-form-input field="subject" title="الموضوع" :model="$book" required="true" class="col-md-6"></x-form-input>
+        <x-form-input field="subject" title="الموضوع" :model="$book" class="col-md-6"></x-form-input>
       </div>
       <div class="form-row">
 
         {{--field_id--}}
         <x-form-select2 field="field_id" title="المجال" :model="$book" insert_route="{{route('json-fields-insert')}}"
-          options_route="{{ route('json-fields') }}" get_name_route="json-fields-get" required="true" class="col-md-6">
+          options_route="{{ route('json-fields') }}" get_name_route="json-fields-get" class="col-md-6">
         </x-form-select2>
         {{--speciality_id--}}
         <x-form-select2 field="specialty_id" title="التخصص" :model="$book"
           insert_route="{{route('json-specialties-insert')}}" options_route="{{ route('json-specialties') }}"
-          get_name_route="json-specialties-get" required="true" class="col-md-6"></x-form-select2>
+          get_name_route="json-specialties-get" class="col-md-6"></x-form-select2>
       </div>
       <div class="form-row">
-        <x-form-input field="print_year" title="سنة النشر" :model="$book" required="true" class="col-md-4">
+        <x-form-input field="print_year" title="سنة النشر" :model="$book" class="col-md-4">
         </x-form-input>
-        <x-form-input field="edition" title="رقم الطبعة" type="number" :model="$book" required="true" class="col-md-4">
+        <x-form-input field="edition" title="رقم الطبعة" type="number" :model="$book" class="col-md-4">
         </x-form-input>
-        <x-form-input field="ISBN" title="رقم التعريف الدولي" :model="$book" required="true" class="col-md-4">
+        <x-form-input field="ISBN" title="رقم التعريف الدولي" :model="$book" class="col-md-4">
         </x-form-input>
       </div>
       <div class="form-row">
-        <x-form-input field="category" title="التصنيف" :model="$book" required="true" class="col-md-4"></x-form-input>
+        <x-form-input field="category" title="التصنيف" :model="$book"  class="col-md-4"></x-form-input>
         <x-form-input field="price" title="سعر الكتاب" type="number" :model="$book" class="col-md-4"></x-form-input>
         <x-form-input field="lending_days" title="مدة الإعارة (بالأيام)" type="number" :model="$book" class="col-md-4"></x-form-input>
       </div>

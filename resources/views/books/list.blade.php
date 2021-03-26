@@ -100,7 +100,15 @@
             <div class="py-2 pr-2" style="white-space: nowrap; overflow: hidden;  text-overflow: ellipsis;">
               <p class="h5">{{$book->title}}</p>
               <p class="font-size-sm text-muted mb-0">{{$book->author}}</p>
-              <p class="font-size-sm text-muted mb-0">{{$book->print_year}} - الطبعة {{$book->edition}}</p>
+              <?php
+                $s = "";
+                if ($book->print_year) $s = $book->print_year;
+                if ($book->edition) {
+                  if ($s) $s .= ' - ' . 'الطبعة ';
+                  $s .= $book->edition;
+                }
+              ?>
+              <p class="font-size-sm text-muted mb-0">{{$s}}</p>
             </div>
           </div>
         </a>
