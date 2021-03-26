@@ -232,7 +232,7 @@ class BookController extends Controller
 
   public function get_books_json() {
     return [
-      'data' => Book::all()->toArray()
+      'data' => Book::all('id', 'title', 'author', 'publisher', 'edition', 'ISBN', 'barcode')->toArray()
     ];
   }
 }

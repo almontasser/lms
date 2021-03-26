@@ -66,7 +66,8 @@
       document.addEventListener("DOMContentLoaded", function (event) {
         $(document).ready(function() {
           $('#books-table').DataTable( {
-              "ajax": '{{route("books-json")}}',
+              deferRender: true,
+              ajax: '{{route("books-json")}}',
               pageLength: 20,
               lengthMenu: [
                   [5, 10, 15, 20],

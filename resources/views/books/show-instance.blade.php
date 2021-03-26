@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="bg-image" @if ($book_instance->book->thumbnail) style="background-image: url('/uploads/{{ $book_instance->book->thumbnail }}');" @endif>
+    <div class="bg-image bg-image-top" @if ($book_instance->book->thumbnail) style="background-image: url('/uploads/{{ $book_instance->book->thumbnail }}');" @endif>
         <div class="bg-primary-dark-op" style="height: 200px;">
         </div>
     </div>
