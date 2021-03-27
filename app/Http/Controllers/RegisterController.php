@@ -18,6 +18,7 @@ class RegisterController extends Controller
     $this->validate($request, [
       'name' => 'required|max:255',
       'email' => 'required|email|unique:users,email|max:255',
+      'phone' => 'required|unique:users,phone|max:255',
       'id_number' => 'required|unique:users,id_number|max:30',
       'position' => 'required|max:255',
       'password' => 'required|min:8|confirmed',
@@ -26,6 +27,7 @@ class RegisterController extends Controller
     User::create([
       'name' => $request->input('name'),
       'email' => $request->input('email'),
+      'phone' => $request->input('phone'),
       'id_number' => $request->input('id_number'),
       'position' => $request->input('position'),
       'password' => Hash::make($request->input('password')),

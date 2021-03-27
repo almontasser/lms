@@ -49,6 +49,15 @@
                   @enderror
                 </div>
                 <div class="form-group">
+                  <input type="text" class="form-control form-control-lg form-control-alt" id="phone" name="phone"
+                    placeholder="رقم الهاتف" value="{{ old('phone') }}">
+                  @error('phone')
+                  <div style="color: red">
+                    {{ $message }}
+                  </div>
+                  @enderror
+                </div>
+                <div class="form-group">
                   <input type="text" class="form-control form-control-lg form-control-alt" id="id_number"
                     name="id_number" placeholder="رقم القيد أو الرقم الوظيفي" value="{{ old('id_number') }}">
                   @error('id_number')
