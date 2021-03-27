@@ -114,7 +114,9 @@
         </a>
       </div>
       @endforeach
-      {{$books->links()}}
+      <div class="pt-4 text-center">
+        {{$books->links()}}
+      </div>
       <!-- END Books -->
     </div>
   </div>
