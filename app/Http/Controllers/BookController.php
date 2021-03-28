@@ -226,6 +226,7 @@ class BookController extends Controller
         ]);
       }
     }
+    return 'DONE';
   }
 
   public function get_books_json() {
