@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,8 @@ Route::get('/books/{book}/download', [BookController::class, 'download'])->name(
 
 Route::get('/papers', [HomeController::class, 'index'])->name('papers');
 Route::get('/projects', [HomeController::class, 'index'])->name('projects');
+
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 Route::group(['middleware' => ['admin']], function () {
   Route::get('users/index', [UserController::class, 'index'])->name('users');

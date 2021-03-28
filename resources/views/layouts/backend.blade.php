@@ -254,11 +254,10 @@
           <!-- END Open Search Section -->
 
           <!-- Search Form (visible on larger screens) -->
-          <form class="d-none d-sm-inline-block" action="/dashboard" method="POST">
-            @csrf
+          <form class="d-none d-sm-inline-block" action="{{ route('search') }}" method="GET">
             <div class="input-group input-group-sm">
               <input type="text" class="form-control form-control-alt" placeholder="بحث..."
-                id="page-header-search-input2" name="page-header-search-input2">
+                id="search" name="s" value="{{app('request')->input('s')}}">
               <div class="input-group-append">
                 <span class="input-group-text bg-body border-0">
                   <i class="fa fa-fw fa-search"></i>

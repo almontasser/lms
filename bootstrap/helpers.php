@@ -83,3 +83,10 @@ function sanitize_file_name(string $filename)
 
   return $filename;
 }
+
+function generate_normalization_pattern($search_string) {
+  $patterns     = array( "/(ا|إ|أ|آ)/", "/(ه|ة)/" );
+  // $replacements = array( "[ا|إ|أ|آ]", "[ه|ة]" );
+  $replacements = array( "_", "_" );
+  return preg_replace($patterns, $replacements, $search_string);
+}

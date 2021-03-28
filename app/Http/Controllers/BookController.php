@@ -139,9 +139,7 @@ class BookController extends Controller
 
   public function index()
   {
-    return view('books.index', [
-      'books' => Book::all(),
-    ]);
+    return view('books.index');
   }
 
   public function show(Book $book)

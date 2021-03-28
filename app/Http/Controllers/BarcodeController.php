@@ -26,6 +26,8 @@ class BarcodeController extends Controller
             }
         }
         $book_barcode = substr_replace($barcode, '00', 1, 2);
+        $book_barcode = substr($book_barcode, 0, -1);
+        $book_barcode = generateEAN13Checksum($book_barcode);
         $book = Book::where('barcode', $book_barcode)->first();
         if (isset($book)) {
           return redirect()->route('book-show', [$book]);
