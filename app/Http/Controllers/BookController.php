@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\BookInstance;
 use App\Models\Field;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
 
 class BookController extends Controller
@@ -150,7 +151,10 @@ class BookController extends Controller
   public function download(Book $book)
   {
     $path = storage_path('app/books/' . $book->file);
-    return response()->download($path, sanitize_file_name($book->title . ".pdf"));
+    return Response::make(file_get_contents($path), 200, [
+      'Content-Type'        => 'application/pdf',
+      'Content-Disposition' => 'inline; filename="'.$book->title.'"'
+    ]);
   }
 
   public function show_import_from_csv()
