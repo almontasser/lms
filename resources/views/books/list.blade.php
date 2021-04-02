@@ -97,8 +97,8 @@
           <div class="block-content p-0 d-flex" style="overflow: hidden">
             <img class="img-fluid" style="width: 71px; height: 98px; object-fit: cover;" src="{{$book->getCover()}}"
               alt="">
-            <div class="py-2 pr-2" style="white-space: nowrap; overflow: hidden;  text-overflow: ellipsis;">
-              <p class="h5">{{$book->title}}</p>
+            <div class="py-2 px-2" style="white-space: nowrap; overflow: hidden;  text-overflow: ellipsis;">
+              <p dir="auto" class="h5" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{$book->title}}</p>
               <p class="font-size-sm text-muted mb-0">{{$book->author}}</p>
               <?php
                 $s = "";
