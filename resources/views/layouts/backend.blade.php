@@ -132,17 +132,25 @@
             <li class="nav-main-item{{ request()->is('papers/*') ? ' open' : '' }}">
               <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                 aria-expanded="true" href=" #">
-                <i class="nav-main-link-icon si si-doc"></i>
+                <i class="nav-main-link-icon si si-book-open"></i>
                 <span class="nav-main-link-name">الأوراق البحثية</span>
               </a>
               <ul class="nav-main-submenu">
                 <li class="nav-main-item">
-                  <a class="nav-main-link{{ request()->is('papers/list') ? ' active' : '' }}" href="/pages/datatables">
+                  <a class="nav-main-link{{ request()->is('papers/list') ? ' active' : '' }}"
+                    href="{{ route('papers-list') }}">
+                    <span class="nav-main-link-name">عرض الأوراق البحثية</span>
+                  </a>
+                </li>
+                <li class="nav-main-item">
+                  <a class="nav-main-link{{ request()->is('papers/index') ? ' active' : '' }}"
+                    href="{{ route('papers') }}">
                     <span class="nav-main-link-name">قائمة الأوراق البحثية</span>
                   </a>
                 </li>
                 <li class="nav-main-item">
-                  <a class="nav-main-link{{ request()->is('papers/insert') ? ' active' : '' }}" href="/pages/slick">
+                  <a class="nav-main-link{{ request()->is('papers/insert') ? ' active' : '' }}"
+                    href="{{ route('paper-insert') }}">
                     <span class="nav-main-link-name">إضافة ورقة بحثية</span>
                   </a>
                 </li>

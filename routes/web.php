@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ResearchPaperController;
 use App\Http\Controllers\SearchController;
 
 /*
@@ -41,13 +42,15 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 Route::get('/books/list', [BookController::class, 'list'])->name('books-list');
 Route::get('books/show/{book}', [BookController::class, 'show'])->name('book-show');
-Route::get('/books/{book}/download', [BookController::class, 'download'])->name('book-download');
 
+Route::get('papers/list', [ResearchPaperController::class, 'list'])->name('papers-list');
+Route::get('papers/show/{paper}', [ResearchPaperController::class, 'show'])->name('paper-show');
 
-Route::get('/papers', [HomeController::class, 'index'])->name('papers');
 Route::get('/projects', [HomeController::class, 'index'])->name('projects');
 
 Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+Route::get('barcode/{barcode}', [BarcodeController::class, 'find_barcode'])->name('find-barcode');
 
 Route::group(['middleware' => ['admin']], function () {
   Route::get('users/index', [UserController::class, 'index'])->name('users');
@@ -88,24 +91,18 @@ Route::group(['middleware' => ['admin']], function () {
 
   Route::get('import-books-from-csv', [BookController::class, 'show_import_from_csv'])->name('import-from-csv');
   Route::post('import-books-from-csv', [BookController::class, 'import_from_csv']);
+
+  Route::get('/papers/index', [ResearchPaperController::class, 'index'])->name('papers');
+  Route::get('papers/insert', [ResearchPaperController::class, 'create'])->name('paper-insert');
+  Route::post('papers/insert', [ResearchPaperController::class, 'store']);
+  Route::get('papers/edit/{paper}', [ResearchPaperController::class, 'edit'])->name('paper-edit');
+  Route::post('papers/edit/{paper}', [ResearchPaperController::class, 'update']);
+
+  Route::get('papers/json', [ResearchPaperController::class, 'get_papers_json'])->name('papers-json');
 });
 
-Route::get('barcode/{barcode}', [BarcodeController::class, 'find_barcode'])->name('find-barcode');
+Route::group(['middleware' => ['active.user']], function() {
+  Route::get('/books/{book}/download', [BookController::class, 'download'])->name('book-download');
 
-
-// Route::group(['middleware' => ['admin']], function () {
-//     Route::get('test', function () {
-//         return 'asd';
-//     });
-// });
-
-// Route::get('/', function () {
-//     return view('landing');
-// })->name('home');
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');
-// Route::view('/pages/slick', 'pages.slick');
-// Route::view('/pages/datatables', 'pages.datatables');
-// Route::view('/pages/blank', 'pages.blank');
+  Route::get('/papers/{paper}/download', [ResearchPaperController::class, 'download'])->name('paper-download');
+});
