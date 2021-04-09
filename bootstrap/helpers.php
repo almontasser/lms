@@ -2,6 +2,8 @@
 
 //https://chasingcode.dev/blog/laravel-global-url-helpers/
 
+use App\Concerns\MultilingualStemmer;
+
 /**
  * URL before:
  * https://example.com/orders/123?order=ABC009
@@ -89,4 +91,20 @@ function generate_normalization_pattern($search_string) {
   // $replacements = array( "[ا|إ|أ|آ]", "[ه|ة]" );
   $replacements = array( "_", "_" );
   return preg_replace($patterns, $replacements, $search_string);
+}
+
+function TNTConfig()
+{
+  return [
+    'driver'    => env('DB_CONNECTION'),
+    'host'      => env('DB_HOST'),
+    'port'      => env('DB_PORT'),
+    'database'  => env('DB_DATABASE'),
+    'username'  => env('DB_USERNAME'),
+    'password'  => env('DB_PASSWORD'),
+    'storage'   => storage_path(),
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'stemmer'   => MultilingualStemmer::class,
+  ];
 }
