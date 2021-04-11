@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 
 @section('content')
-  <div class="container pt-4">
+  <div class="content pt-4">
     <h4>نتائج البحث عن: {{app('request')->input('s')}}</h4>
     @foreach ($results as $result)
       <?php
@@ -11,7 +11,10 @@
           <div>
             كتاب: {{$result['model']->title}}
           </div>
-          <small>المؤلف: {{$result['model']->author}}</small>
+          <div><small>المؤلف: {{$result['model']->author}}</small></div>
+          <?php if (!empty($result['model']->publisher)) { ?>
+            <div><small>دار النشر: {{$result['model']->publisher}}</small></div>
+          <?php } ?>
           {{-- <div>Score: {{$result['score']}}</div> --}}
         </a>
       <?php
@@ -20,10 +23,20 @@
           <div>
             ورقة بحثية: {{$result['model']->title}}
           </div>
-          <small>المؤلف: {{$result['model']->author}}</small>
+          <div><small>المؤلف: {{$result['model']->author}}</small></div>
           {{-- <div>Score: {{$result['score']}}</div> --}}
         </a>
-        <?php } ?>
+      <?php
+      } else if ($class == 'Project') { ?>
+      <a class="pt-4 d-block" href="{{ route('project-show', ['project' => $result['model']]) }}">
+        <div>
+          مشروع: {{$result['model']->title}}
+        </div>
+        <div><small>المؤلف: {{$result['model']->authors}}</small></div>
+        <div><small>المشرف: {{$result['model']->supervisor}}</small></div>
+        {{-- <div>Score: {{$result['score']}}</div> --}}
+      </a>
+      <?php } ?>
     @endforeach
   </div>
   <div class="py-4 text-center">

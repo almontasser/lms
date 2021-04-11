@@ -126,7 +126,7 @@ class ResearchPaperController extends Controller
   public function list()
   {
     return view('papers.list', [
-      'papers' => ResearchPaper::simplePaginate(5)
+      'papers' => ResearchPaper::simplePaginate(10)
     ]);
   }
 }

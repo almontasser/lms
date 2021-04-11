@@ -216,6 +216,29 @@ $barcodeImage = generateBarcodeImage($barcode);
                     {{$book->rack}}
                   </td>
                 </tr>
+              </tbody>
+            </table>
+            <table class="table table-striped table-borderless">
+              <thead>
+                <tr>
+                  <th colspan="2">الكتاب</th>
+                </tr>
+              </thead>
+              <tbody>
+                @if (Auth::check())
+                <tr>
+                  <td style="vertical-align: middle;">
+                    ملف PDF
+                  </td>
+                  <td>
+                    <?php if (!empty($book->file)) { ?>
+                    <a target="__blank" href="{{ route('book-download', ['book' => $book]) }}">فتح ملف PDF</a>
+                    <?php } else { ?>
+                    لا يوجد ملف
+                    <?php } ?>
+                  </td>
+                </tr>
+                @endif
                 @isAdmin()
                 <tr>
                   <td style="vertical-align: middle;">

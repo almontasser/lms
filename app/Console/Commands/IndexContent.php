@@ -49,5 +49,7 @@ class IndexContent extends Command
     $indexer->run();
     $indexer->query('SELECT concat(\'paper_\',id) as id, title, author, abstract FROM research_papers;');
     $indexer->run();
+    $indexer->query('SELECT concat(\'project_\',id) as id, title, authors, abstract, supervisor, sub_supervisor, conclusion FROM projects;');
+    $indexer->run();
   }
 }

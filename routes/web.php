@@ -9,9 +9,11 @@ use App\Http\Controllers\BookInstanceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResearchPaperController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\StageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +48,8 @@ Route::get('books/show/{book}', [BookController::class, 'show'])->name('book-sho
 Route::get('papers/list', [ResearchPaperController::class, 'list'])->name('papers-list');
 Route::get('papers/show/{paper}', [ResearchPaperController::class, 'show'])->name('paper-show');
 
-Route::get('/projects', [HomeController::class, 'index'])->name('projects');
+Route::get('projects/list', [ProjectController::class, 'list'])->name('projects-list');
+Route::get('projects/show/{project}', [ProjectController::class, 'show'])->name('project-show');
 
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 
@@ -89,6 +92,10 @@ Route::group(['middleware' => ['admin']], function () {
   Route::post('json/specialties/insert', [SpecialtyController::class, 'json_store'])->name('json-specialties-insert');
   Route::post('json/specialties/get', [SpecialtyController::class, 'json_get'])->name('json-specialties-get');
 
+  Route::post('json/stages', [StageController::class, 'json_search'])->name('json-stages');
+  Route::post('json/stages/insert', [StageController::class, 'json_store'])->name('json-stages-insert');
+  Route::post('json/stages/get', [StageController::class, 'json_get'])->name('json-stages-get');
+
   Route::get('import-books-from-csv', [BookController::class, 'show_import_from_csv'])->name('import-from-csv');
   Route::post('import-books-from-csv', [BookController::class, 'import_from_csv']);
 
@@ -98,11 +105,21 @@ Route::group(['middleware' => ['admin']], function () {
   Route::get('papers/edit/{paper}', [ResearchPaperController::class, 'edit'])->name('paper-edit');
   Route::post('papers/edit/{paper}', [ResearchPaperController::class, 'update']);
 
-  Route::get('papers/json', [ResearchPaperController::class, 'get_papers_json'])->name('papers-json');
+  Route::get('projects/json', [ProjectController::class, 'get_projects_json'])->name('projects-json');
+
+  Route::get('/projects/index', [ProjectController::class, 'index'])->name('projects');
+  Route::get('projects/insert', [ProjectController::class, 'create'])->name('project-insert');
+  Route::post('projects/insert', [ProjectController::class, 'store']);
+  Route::get('projects/edit/{project}', [ProjectController::class, 'edit'])->name('project-edit');
+  Route::post('projects/edit/{project}', [ProjectController::class, 'update']);
+
+  Route::get('projects/json', [ProjectController::class, 'get_projects_json'])->name('projects-json');
 });
 
 Route::group(['middleware' => ['active.user']], function() {
   Route::get('/books/{book}/download', [BookController::class, 'download'])->name('book-download');
 
   Route::get('/papers/{paper}/download', [ResearchPaperController::class, 'download'])->name('paper-download');
+
+  Route::get('/projects/{project}/download', [ProjectController::class, 'download'])->name('project-download');
 });

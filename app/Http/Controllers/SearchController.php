@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Concerns\BM25;
 use App\Concerns\MultilingualStemmer;
 use App\Models\Book;
+use App\Models\Project;
 use App\Models\ResearchPaper;
 use Exception;
 use Illuminate\Http\Request;
@@ -158,31 +159,6 @@ class SearchController extends Controller
 
   public function search(Request $request)
   {
-    // $terms = '%' . implode('%', explode(' ', $request->input('s'))) . '%';
-    // $s = generate_normalization_pattern($terms);
-
-    // $searchResults = Book::whereRaw('MATCH (title, author, publisher, description) AGAINST (?)' , array($request->input('s')))->get();
-    // $searchResults = Book::select(DB::raw('*, MATCH(title, author, publisher, description) AGAINST (?) AS score'))
-    //   ->whereRaw('MATCH (title, author, publisher, description) AGAINST (?)', array($s, $s))
-    //   ->orderBy('score', 'desc')
-    //   ->get();
-    // $searchResults = Book::query()
-    //   ->where('title', 'LIKE', $s)
-    //   ->orWhere('author', 'LIKE', $s)
-    //   ->orWhere('publisher', 'LIKE', $s)
-    //   ->orWhere('description', 'LIKE', $s)
-    //   ->simplePaginate(10);
-    // $searchResults = Search::new()
-    //   ->add(Book::class, ['title', 'author', 'publisher', 'description'])
-    //   ->endWithWildcard(false)
-    //   ->dontParseTerm()
-    //   ->simplePaginate(10)
-    //   ->get($s);
-
-    // $searchResults = (new Search())
-    //   ->registerModel(Book::class, 'title', 'author', 'publisher', 'description')
-    //   ->search($request->input('s'));
-
     $s = strtolower($this->normalize($request->input('s')));
 
     $tnt = new TNTSearch;
@@ -206,54 +182,18 @@ class SearchController extends Controller
 
     $book_ids = [];
     $paper_ids = [];
+    $project_ids = [];
     foreach ($res['ids'] as $id) {
       if (str_starts_with($id, 'book_')) {
-        $book_ids[] = substr($id, 5, strlen($id) - 5);
+        $book_ids[] = substr($id, 5);
       } else if (str_starts_with($id, 'paper_')) {
-        $paper_ids[] = substr($id, 6, strlen($id) - 6);
+        $paper_ids[] = substr($id, 6);
+      } else if (str_starts_with($id, 'project_')) {
+        $project_ids[] = substr($id, 8);
       }
     }
 
     $searchResults = [];
-
-
-    // $books = Book::whereIn('id', $book_ids)->get();
-    // foreach ($books as $book) {
-    //   $p = 0;
-    //   $percentage = 0;
-    //   $sim = 0;
-    //   $sim = similar_text(strtolower($this->normalize($book->title)), $s, $p);
-    //   $percentage = max($percentage, $p);
-    //   $sim = $sim + similar_text(strtolower($this->normalize($book->author)), $s, $p);
-    //   $percentage = max($percentage, $p);
-    //   $sim = $sim + similar_text(strtolower($this->normalize($book->publisher)), $s, $p);
-    //   $percentage = max($percentage, $p);
-    //   $sim = $sim + similar_text(strtolower($this->normalize($book->description)), $s, $p);
-    //   $percentage = max($percentage , $p);
-    //   $score = self::string_compare($s, strtolower($this->normalize($book->title)));
-    //   $searchResults[] = ['model' => $book, 'percentage' => $percentage, 'similar' => $sim, 'score' => $score];
-    // }
-
-    // $papers = ResearchPaper::whereIn('id', $paper_ids)->get();
-    // foreach ($papers as $paper) {
-    //   $p = 0;
-    //   $percentage = 0;
-    //   $sim = 0;
-    //   $sim = similar_text(strtolower($this->normalize($paper->title)), $s, $p);
-    //   $percentage = max($percentage, $p);
-    //   $sim = $sim + similar_text(strtolower($this->normalize($paper->author)), $s, $p);
-    //   $percentage = max($percentage, $p);
-    //   $sim = $sim + similar_text(strtolower($this->normalize($paper->abstract)), $s, $p);
-    //   $percentage = max($percentage, $p);
-    //   $score = self::string_compare($s, strtolower($this->normalize($paper->title)));
-    //   $searchResults[] = ['model' => $paper, 'percentage' => $percentage, 'similar' => $sim, 'score' => $score];
-    // }
-
-    // usort($searchResults, function ($a, $b) {
-    //   if ($a['similar'] == $b['similar']) return 0;
-
-    //   return ($a['similar'] > $b['similar']) ? -1 : 1;
-    // });
 
     $docs = [];
 
@@ -276,6 +216,13 @@ class SearchController extends Controller
       $docs[] = $paper->title . ' ' . $paper->author . ' ' . $paper->abstract;
     }
 
+    $projects = Project::whereIn('id', $project_ids)->get();
+    foreach ($projects as $project) {
+      $searchResults[] = ['model' => $project];
+      $docs[] = $project->title . ' ' . $project->authors . ' ' . $project->supervisor . ' '
+        . $project->sub_supervisor . ' ' . $project->abstract . ' ' . $project->conclusion;
+    }
+
     $docs = BM25::score($q, $docs, $stemmer, 0.75, 0, false, false);
 
     $results = [];
@@ -285,7 +232,6 @@ class SearchController extends Controller
     }
 
     $results = $this->simplePaginate($results, 20);
-    // ddd($results);
 
     return view('search.index', ['results' => $results->appends($request->except('page'))]);
   }

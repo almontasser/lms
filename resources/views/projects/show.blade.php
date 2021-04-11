@@ -5,13 +5,13 @@
 @endsection
 
 @section('content')
-<div class="bg-image bg-image-top" @if($paper->thumbnail) style="background-image: url('/uploads/{{$paper->thumbnail}}');" @endif>
+<div class="bg-image bg-image-top" @if($project->thumbnail) style="background-image: url('/uploads/{{$project->thumbnail}}');" @endif>
   <div class="bg-primary-dark-op" style="height: 200px;">
   </div>
 </div>
 
 <?php
-$barcode = $paper->barcode;
+$barcode = $project->barcode;
 $barcodeImage = generateBarcodeImage($barcode);
 ?>
 
@@ -20,7 +20,7 @@ $barcodeImage = generateBarcodeImage($barcode);
   <div class="row">
     <div class="col">
       <div class="block block-rounded block-link-shadow text-center">
-          <a class="block block-rounded block-link-shadow text-center" href="{{ route('paper-edit', [$paper]) }}">
+          <a class="block block-rounded block-link-shadow text-center" href="{{ route('project-edit', [$project]) }}">
               <div class="block-content block-content-full">
                   <div class="font-size-h2 text-dark">
                       <i class="fa fa-pencil-alt"></i>
@@ -62,8 +62,8 @@ $barcodeImage = generateBarcodeImage($barcode);
           <!-- For more info and examples you can check out http://dimsemenov.com/plugins/magnific-popup/ -->
           <div class="row gutters-tiny js-gallery img-fluid-100">
             <div class="col-12 mb-3">
-              <a class="img-link img-link-zoom-in img-lightbox" href="{{$paper->getCover()}}">
-                <img class="img-fluid" src="{{$paper->getCover()}}" alt="">
+              <a class="img-link img-link-zoom-in img-lightbox" href="{{$project->getCover()}}">
+                <img class="img-fluid" src="{{$project->getCover()}}" alt="">
               </a>
             </div>
           </div>
@@ -72,11 +72,11 @@ $barcodeImage = generateBarcodeImage($barcode);
         <div class="col-md-8">
           <div class="d-flex justify-content-between align-items-center border-bottom py-2">
             <div>
-              <h1 class="h2 mb-2">{{$paper->title}}</h1>
-              <h2 class="h4 font-w400 mb-0">{{$paper->author}}</h2>
+              <h1 class="h2 mb-2">{{$project->title}}</h1>
+              <h2 class="h4 font-w400 mb-0">{{$project->authors}}</h2>
             </div>
           </div>
-          <p class="mt-2">{{$paper->abstract}}</p>
+          <p class="mt-2">{{$project->abstract}}</p>
           <!-- END Info -->
         </div>
       </div>
@@ -87,41 +87,71 @@ $barcodeImage = generateBarcodeImage($barcode);
       <div class="block block-rounded">
         <ul class="nav nav-tabs nav-tabs-alt align-items-center pr-0" data-toggle="tabs" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" href="#paper-info">معلومات</a>
+            <a class="nav-link active" href="#project-info">معلومات</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#paper-comments">تعليقات</a>
+            <a class="nav-link" href="#project-comments">تعليقات</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#paper-reviews">مراجعات</a>
+            <a class="nav-link" href="#project-reviews">مراجعات</a>
           </li>
         </ul>
         <div class="block-content tab-content">
           <!-- Info -->
-          <div class="tab-pane pull-x active" id="paper-info" role="tabpanel">
+          <div class="tab-pane pull-x active" id="project-info" role="tabpanel">
             <table class="table table-striped table-borderless">
               <thead>
                 <tr>
-                  <th colspan="2">معلومات عن الورقة البحثية</th>
+                  <th colspan="2">معلومات عن مشروع التخرج</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td style="width: 20%;">العنوان</td>
                   <td>
-                    {{$paper->title}}
+                    {{$project->title}}
                   </td>
                 </tr>
                 <tr>
-                  <td>الكاتب</td>
+                  <td>معد المشروع</td>
                   <td>
-                    {{$paper->author}}
+                    {{$project->authors}}
                   </td>
                 </tr>
                 <tr>
-                  <td>سنة النشر</td>
+                  <td>المشرف</td>
                   <td>
-                    {{$paper->year}}
+                    {{$project->supervisor}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>مساعد المشرف</td>
+                  <td>
+                    {{$project->sub_supervisor}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>السنة</td>
+                  <td>
+                    {{$project->year}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>الفصل الدراسي</td>
+                  <td>
+                    {{$project->semester}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>المرحلة</td>
+                  <td>
+                    {{$project->stage ? $project->stage->name : ''}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>التخصص</td>
+                  <td>
+                    {{$project->specialty ? $project->specialty->name : ''}}
                   </td>
                 </tr>
               </tbody>
@@ -137,20 +167,20 @@ $barcodeImage = generateBarcodeImage($barcode);
                   <td style="width: 20%;">
                     الصف
                   </td>
-                  <td>{{$paper->row}}</td>
+                  <td>{{$project->row}}</td>
                 </tr>
                 <tr>
                   <td>
                     العمود
                   </td>
-                  <td>{{$paper->col}}</td>
+                  <td>{{$project->col}}</td>
                 </tr>
                 <tr>
                   <td>
                     الرف
                   </td>
                   <td>
-                    {{$paper->rack}}
+                    {{$project->rack}}
                   </td>
                 </tr>
               </tbody>
@@ -158,7 +188,7 @@ $barcodeImage = generateBarcodeImage($barcode);
             <table class="table table-striped table-borderless">
               <thead>
                 <tr>
-                  <th colspan="2">الورقة البحثية</th>
+                  <th colspan="2">المشروع</th>
                 </tr>
               </thead>
               <tbody>
@@ -168,8 +198,8 @@ $barcodeImage = generateBarcodeImage($barcode);
                     ملف PDF
                   </td>
                   <td>
-                    <?php if (!empty($paper->file)) { ?>
-                    <a target="__blank" href="{{ route('paper-download', ['paper' => $paper]) }}">فتح ملف PDF</a>
+                    <?php if (!empty($project->file)) { ?>
+                    <a target="__blank" href="{{ route('project-download', ['project' => $project]) }}">فتح ملف PDF</a>
                     <?php } else { ?>
                     لا يوجد ملف
                     <?php } ?>
@@ -197,7 +227,7 @@ $barcodeImage = generateBarcodeImage($barcode);
           <!-- END Info -->
 
           <!-- Comments -->
-          <div class="tab-pane pull-x font-size-sm" id="paper-comments" role="tabpanel">
+          <div class="tab-pane pull-x font-size-sm" id="project-comments" role="tabpanel">
             <div class="pb-2 pr-2">لا يوجد أي تعليقات</div>
             @auth
             <form action="" method="POST">
@@ -208,7 +238,7 @@ $barcodeImage = generateBarcodeImage($barcode);
           <!-- END Comments -->
 
           <!-- Reviews -->
-          <div class="tab-pane pull-x font-size-sm" id="paper-reviews" role="tabpanel">
+          <div class="tab-pane pull-x font-size-sm" id="project-reviews" role="tabpanel">
             <!-- Average Rating -->
             <div class="block block-rounded bg-body-light">
               <div class="block-content text-center">
