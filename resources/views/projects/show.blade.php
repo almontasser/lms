@@ -183,6 +183,7 @@ $barcodeImage = generateBarcodeImage($barcode);
                     {{$project->rack}}
                   </td>
                 </tr>
+                @if (Auth::check())
               </tbody>
             </table>
             <table class="table table-striped table-borderless">
@@ -192,7 +193,6 @@ $barcodeImage = generateBarcodeImage($barcode);
                 </tr>
               </thead>
               <tbody>
-                @if (Auth::check())
                 <tr>
                   <td style="vertical-align: middle;">
                     ملف PDF
