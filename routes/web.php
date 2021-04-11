@@ -105,7 +105,7 @@ Route::group(['middleware' => ['admin']], function () {
   Route::get('papers/edit/{paper}', [ResearchPaperController::class, 'edit'])->name('paper-edit');
   Route::post('papers/edit/{paper}', [ResearchPaperController::class, 'update']);
 
-  Route::get('projects/json', [ProjectController::class, 'get_projects_json'])->name('projects-json');
+  Route::get('papers/json', [ResearchPaperController::class, 'get_papers_json'])->name('papers-json');
 
   Route::get('/projects/index', [ProjectController::class, 'index'])->name('projects');
   Route::get('projects/insert', [ProjectController::class, 'create'])->name('project-insert');
