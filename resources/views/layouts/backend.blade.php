@@ -158,7 +158,7 @@
             </li>
             @_else()
             <li class="nav-main-item open">
-              <a class="nav-main-link" href="{{ route('papers') }}">
+              <a class="nav-main-link" href="{{ route('papers-list') }}">
                 <i class="nav-main-link-icon si si-doc"></i>
                 <span class="nav-main-link-name">الأوراق البحثية</span>
               </a>
@@ -195,7 +195,7 @@
             </li>
             @_else()
             <li class="nav-main-item open">
-              <a class="nav-main-link" href="{{ route('projects') }}">
+              <a class="nav-main-link" href="{{ route('projects-list') }}">
                 <i class="nav-main-link-icon si si-doc"></i>
                 <span class="nav-main-link-name">المشاريع</span>
               </a>
