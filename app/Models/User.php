@@ -24,6 +24,7 @@ class User extends Authenticatable
     'position',
     'type',
     'password',
+    'barcode'
   ];
 
   /**
@@ -63,6 +64,11 @@ class User extends Authenticatable
   public function isAdmin()
   {
     return $this->type == 3;
+  }
+
+  public function isUnregistered()
+  {
+    return $this->type == 4;
   }
 
   public function getPicture()

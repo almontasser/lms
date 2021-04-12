@@ -235,6 +235,12 @@
                     <span class="nav-main-link-name">إضافة مستخدم</span>
                   </a>
                 </li>
+                <li class="nav-main-item">
+                  <a class="nav-main-link{{ request()->is('users/import') ? ' active' : '' }}"
+                    href="{{ route('users-import') }}">
+                    <span class="nav-main-link-name">إستيراد بيانات الطلبة</span>
+                  </a>
+                </li>
               </ul>
             </li>
             @endisAdmin()

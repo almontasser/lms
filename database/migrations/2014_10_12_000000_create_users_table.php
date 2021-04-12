@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
       $table->string('position');
       $table->timestamp('email_verified_at')->nullable();
       $table->string('password');
-      $table->tinyInteger('type')->default(0)->comment('0: inactive, 1: baned, 2: user, 3: admin');
+      $table->tinyInteger('type')->default(0)->comment('0: inactive, 1: baned, 2: user, 3: admin, 4: unregistered');
       $table->rememberToken();
       $table->timestamps();
     });

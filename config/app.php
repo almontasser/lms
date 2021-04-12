@@ -13,7 +13,7 @@ return [
   |
   */
 
-  'name' => env('APP_NAME', 'Laravel'),
+  'name' => env('APP_NAME', 'مكتبة كلية التقنية الصناعية مصراتة'),
 
   /*
   |--------------------------------------------------------------------------
@@ -175,6 +175,9 @@ return [
     App\Providers\EventServiceProvider::class,
     App\Providers\RouteServiceProvider::class,
 
+    Mailjet\LaravelMailjet\MailjetServiceProvider::class,
+    Mailjet\LaravelMailjet\MailjetMailServiceProvider::class,
+
   ],
 
   /*
@@ -226,6 +229,7 @@ return [
     'URL' => Illuminate\Support\Facades\URL::class,
     'Validator' => Illuminate\Support\Facades\Validator::class,
     'View' => Illuminate\Support\Facades\View::class,
+    'Mailjet' => Mailjet\LaravelMailjet\Facades\Mailjet::class,
 
   ],
 

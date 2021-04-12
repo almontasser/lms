@@ -14,6 +14,10 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResearchPaperController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StageController;
+use App\Mail\AccountCreatedMail;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use Mailjet\Resources;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,8 +68,13 @@ Route::group(['middleware' => ['admin']], function () {
   Route::post('users/insert', [UserController::class, 'store']);
   Route::get('users/edit/{user}', [UserController::class, 'edit'])->name('users-edit');
   Route::put('users/edit/{user}', [UserController::class, 'update']);
+  Route::post('users/activate/{user}', [UserController::class, 'activate'])->name('user-activate');
+  Route::post('users/change-password/{user}', [UserController::class, 'changePassword'])->name('user-change-password');
 
   Route::get('users/get/{id}', [UserController::class, 'get'])->name('users-get');
+
+  Route::get('users/import', [UserController::class, 'get_import'])->name('users-import');
+  Route::post('users/import', [UserController::class, 'import']);
 
   Route::get('/books/index', [BookController::class, 'index'])->name('books');
   Route::get('books/insert', [BookController::class, 'create'])->name('books-insert');

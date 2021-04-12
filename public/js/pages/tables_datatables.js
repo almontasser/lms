@@ -141,7 +141,7 @@ var pageTablesDatatables = /*#__PURE__*/function () {
       }); // Init full DataTable
 
       jQuery(".js-dataTable-full").dataTable({
-        pageLength: 5,
+        pageLength: 20,
         lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
         autoWidth: false,
         oLanguage: {

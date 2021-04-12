@@ -2,12 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AccountCreatedMail;
+use App\Mail\PasswordChangedMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class UserController extends Controller
 {
+  private function sendAccountCreatedEmail(User $user, String $password)
+  {
+    Mail::to($user)->send(new AccountCreatedMail($user->name, $user->email, $password));
+  }
+
+  private function sendPasswordChangedEmail(User $user, String $password)
+  {
+    Mail::to($user)->send(new PasswordChangedMail($user->name, $user->email, $password));
+  }
+
   public function index()
   {
     return view('users.index');
@@ -59,19 +74,22 @@ class UserController extends Controller
       'phone' => 'required|unique:users,phone',
       'id_number' => 'required|unique:users,id_number|max:30',
       'position' => 'required|max:255',
-      'password' => 'required|min:8|confirmed',
       'type' => 'required'
     ]);
 
-    User::create([
+    $password = randomPassword();
+
+    $user = User::create([
       'name' => $request->input('name'),
       'email' => $request->input('email'),
       'phone' => $request->input('phone'),
       'id_number' => $request->input('id_number'),
       'position' => $request->input('position'),
-      'password' => Hash::make($request->input('password')),
+      'password' => Hash::make($password),
       'type' => $request->input('type')
     ]);
+
+    $this->sendAccountCreatedEmail($user, $password);
 
     return redirect()->route('users-list');
   }
@@ -92,7 +110,6 @@ class UserController extends Controller
       'phone' => 'required|unique:users,phone,' . $user->id,
       'id_number' => 'required|unique:users,id_number,' . $user->id . '|max:30',
       'position' => 'required|max:255',
-      'password' => $request->password != null ? 'sometimes|min:8|confirmed' : '',
       'type' => 'required'
     ]);
 
@@ -110,8 +127,95 @@ class UserController extends Controller
     return redirect()->route('users-list');
   }
 
+  public function ChangePassword(User $user)
+  {
+    $password = randomPassword();
+
+    $user->password = Hash::make($password);
+
+    $this->sendPasswordChangedEmail($user, $password);
+
+    return redirect()->route('users-list');
+  }
+
   public function get(string $id)
   {
     return User::where('id_number', $id)->first();
+  }
+
+  public function get_import()
+  {
+    return view('users.import');
+  }
+
+  public function activate(User $user, Request $request)
+  {
+    $this->validate($request, [
+      'email' => 'required|email|unique:users,email,' . $user->id . '|confirmed|max:255'
+    ]);
+
+    $password = randomPassword();
+
+    $user->email = $request->email;
+    $user->password = Hash::make($password);
+    $user->type = 2;
+    $user->save();
+
+    $this->sendAccountCreatedEmail($user, $password);
+
+    return redirect()->route('users-list');
+  }
+
+  public function import(Request $request)
+  {
+    $this->validate($request, [
+      'users_excel' => 'required|mimes:xlsx,xls'
+    ]);
+
+    $date = now();
+    $extension = $request->users_excel->extension();
+    $filename = date_format($date, 'Y-m-d-H-i-s') . '.' . $extension;
+    $request->users_excel->storeAs('users', $filename);
+
+    $reader = null;
+    if ($extension == 'xls') {
+      $reader = new Xls();
+    } else if ($extension == 'xlsx') {
+      $reader = new Xlsx();
+    }
+
+    $spreadsheet = $reader->load(storage_path('app/users/' . $filename));
+    $imported_users = $spreadsheet->getSheet(0)->toArray();
+
+    for ($i = 1; $i < count($imported_users); $i++) {
+      // create user is it not in the database
+      $user = User::firstOrCreate(
+        ['id_number' => $imported_users[$i][1]],
+        [
+          'name' => $imported_users[$i][0],
+          'position' => 'طالب',
+          'type' => 4, // unregistered user
+          'phone' => $imported_users[$i][11],
+          'barcode' => $imported_users[$i][81]
+        ]
+      );
+
+      $changed = false;
+      // Update user details if changed
+      if ($user->name != $imported_users[$i][0]) {
+        $changed = true;
+        $user->name = $imported_users[$i][0];
+      }
+      if ($user->barcode != $imported_users[$i][81]) {
+        $changed = true;
+        $user->barcode = $imported_users[$i][81];
+      }
+
+      if ($changed) {
+        $user->save();
+      }
+    }
+
+    return redirect()->route('users-list');
   }
 }

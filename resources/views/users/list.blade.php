@@ -44,7 +44,7 @@
           <td class="d-none d-sm-table-cell">
             {{ $user->position }}
           </td>
-          <td class="d-none d-sm-table-cell">
+          <td class="d-none d-sm-table-cell" dir="auto">
             {{ $user->id_number }}
           </td>
           <td class="d-none d-sm-table-cell">
