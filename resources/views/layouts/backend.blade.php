@@ -443,7 +443,7 @@
       <!-- Header Search -->
       <div id="page-header-search" class="overlay-header bg-white">
         <div class="content-header">
-          <form class="w-100" action="/dashboard" method="POST">
+          <form class="w-100" action="{{ route('search') }}" method="GET">
             @csrf
             <div class="input-group">
               <div class="input-group-prepend">
@@ -453,7 +453,7 @@
                 </button>
               </div>
               <input type="text" class="form-control" placeholder="بحث..." id="page-header-search-input"
-                name="page-header-search-input">
+              name="s" value="{{app('request')->input('s')}}">
             </div>
           </form>
         </div>
