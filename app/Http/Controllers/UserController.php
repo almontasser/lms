@@ -119,9 +119,9 @@ class UserController extends Controller
     $user->id_number = $request->input('id_number');
     $user->position = $request->input('position');
     $user->type = $request->input('type');
-    if ($request->input('password')) {
-      $user->password = Hash::make($request->input('password'));
-    }
+    // if ($request->input('password')) {
+    //   $user->password = Hash::make($request->input('password'));
+    // }
     $user->save();
 
     return redirect()->route('users-list');
@@ -132,6 +132,7 @@ class UserController extends Controller
     $password = randomPassword();
 
     $user->password = Hash::make($password);
+    $user->save();
 
     $this->sendPasswordChangedEmail($user, $password);
 
