@@ -5,11 +5,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-  <title>مكتبة كلية التقنية الصناعية مصراته</title>
+  <title>مكتبة كلية التقنية الصناعية مصراتة</title>
 
   <meta name="description"
-    content="OneUI - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
-  <meta name="author" content="pixelcave">
+    content="موقع مكتبة كلية التقنية الصناعية - مصراتة">
+  <meta name="author" content="محمود المنتصر">
   <meta name="robots" content="noindex, nofollow">
 
   <!-- CSRF Token -->
