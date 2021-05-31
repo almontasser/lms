@@ -146,4 +146,13 @@ class BookInstanceController extends Controller
       'success' => true,
     ]);
   }
+
+  public function borrowed()
+  {
+    $movements = BookInstanceMovement::where('borrow_returned', NULL)->get();
+
+    return view('books.borrowed', [
+      'movements' => $movements
+    ]);
+  }
 }

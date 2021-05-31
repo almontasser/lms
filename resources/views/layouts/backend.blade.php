@@ -117,6 +117,12 @@
                     <span class="nav-main-link-name">إضافة كتاب</span>
                   </a>
                 </li>
+                <li class="nav-main-item">
+                  <a class="nav-main-link{{ request()->is('books/borrowed') ? ' active' : '' }}"
+                    href="{{ route('books-borrowed') }}">
+                    <span class="nav-main-link-name">قائمة الكتب المستعارة</span>
+                  </a>
+                </li>
               </ul>
             </li>
             @_else()
