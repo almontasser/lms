@@ -76,7 +76,7 @@ $barcodeImage = generateBarcodeImage($barcode);
               <h2 class="h4 font-w400 mb-0">{{$project->authors}}</h2>
             </div>
           </div>
-          <p class="mt-2">{{$project->abstract}}</p>
+          <p class="mt-2" style="text-align: justify" dir="auto">{{$project->abstract}}</p>
           <!-- END Info -->
         </div>
       </div>
@@ -159,7 +159,7 @@ $barcodeImage = generateBarcodeImage($barcode);
             <table class="table table-striped table-borderless">
               <thead>
                 <tr>
-                  <th colspan="2">مكان الورقة البحثية</th>
+                  <th colspan="2">مكان المشروع</th>
                 </tr>
               </thead>
               <tbody>
@@ -209,7 +209,7 @@ $barcodeImage = generateBarcodeImage($barcode);
                 @isAdmin()
                 <tr>
                   <td style="vertical-align: middle;">
-                    باركود الورقة البحثية
+                    باركود المشروع
                   </td>
                   <td>
                     <div class="barcode text-center" style="display: inline-block">

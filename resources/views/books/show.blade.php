@@ -97,7 +97,7 @@ $barcodeImage = generateBarcodeImage($barcode);
               <div class="font-size-sm text-muted text-left">{{$count}} نسخة</div>
             </div>
           </div>
-          <p class="mt-2">{{$book->description}}</p>
+          <p class="mt-2" style="text-align: justify" dir="auto">{{$book->description}}</p>
           <!-- END Info -->
         </div>
       </div>

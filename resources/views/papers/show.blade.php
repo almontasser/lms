@@ -76,7 +76,7 @@ $barcodeImage = generateBarcodeImage($barcode);
               <h2 class="h4 font-w400 mb-0">{{$paper->author}}</h2>
             </div>
           </div>
-          <p class="mt-2">{{$paper->abstract}}</p>
+          <p class="mt-2" style="text-align: justify" dir="auto">{{$paper->abstract}}</p>
           <!-- END Info -->
         </div>
       </div>

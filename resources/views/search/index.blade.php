@@ -3,6 +3,7 @@
 @section('content')
   <div class="content pt-4">
     <h4>نتائج البحث عن: {{app('request')->input('s')}}</h4>
+    <?php if (count($results) > 0) { ?>
     @foreach ($results as $result)
       <?php
       $class = class_basename($result['model']);
@@ -38,6 +39,9 @@
       </a>
       <?php } ?>
     @endforeach
+    <?php } else {?>
+      <h4>لا يوجد نتائج للبحث</h4>
+    <?php } ?>
   </div>
   <div class="py-4 text-center">
     {{$results->links()}}

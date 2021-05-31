@@ -315,14 +315,14 @@
                 <p class="mb-0 text-white-50 font-size-sm">{{ Auth::user()->position }}</p>
               </div>
               <div class="p-2">
-                <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                {{-- <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
                   <span class="font-size-sm font-w500">صندوق الرسائل</span>
                   <span class="badge badge-pill badge-primary mr-2">3</span>
                 </a>
                 <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
                   <span class="font-size-sm font-w500">البروفايل</span>
                   <span class="badge badge-pill badge-primary mr-2">1</span>
-                </a>
+                </a> --}}
                 <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
                   <span class="font-size-sm font-w500">الإعدادت</span>
                 </a>
