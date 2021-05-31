@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="content">
+  <h4 style="text-align: center;">الأوراق البحثية</h4>
   <div class="row push">
     <div class="col">
 
@@ -13,7 +14,7 @@
             <img class="img-fluid" style="width: 71px; height: 98px; object-fit: cover;" src="{{$paper->getCover()}}"
               alt="">
             <div class="py-2 px-2" style="white-space: nowrap; overflow: hidden;  text-overflow: ellipsis;">
-              <p dir="ltr" class="h5" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{$paper->title}}</p>
+              <p dir="auto" class="h5" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{$paper->title}}</p>
               <p class="font-size-sm text-muted mb-0">{{$paper->author}}</p>
               <p class="font-size-sm text-muted mb-0">{{$paper->year}}</p>
             </div>

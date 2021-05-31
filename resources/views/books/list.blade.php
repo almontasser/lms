@@ -22,6 +22,7 @@
 
 @section('content')
 <div class="content">
+  <h4 style="text-align: center;">الكتب</h4>
   <!-- Toggle Side Content -->
   <!-- Class Toggle, functionality initialized in Helpers.coreToggleClass() -->
   <div class="d-xl-none push">
