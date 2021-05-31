@@ -223,12 +223,13 @@ class SearchController extends Controller
         . $project->sub_supervisor . ' ' . $project->abstract . ' ' . $project->conclusion;
     }
 
-    $docs = BM25::score($q, $docs, $stemmer, 0.75, 0, false, false);
-
     $results = [];
-    foreach ($docs as $key => $score) {
-      $searchResults[$key]['score'] = $score;
-      $results[] = $searchResults[$key];
+    if (count($docs) > 0) {
+      $docs = BM25::score($q, $docs, $stemmer, 0.75, 0, false, false);
+      foreach ($docs as $key => $score) {
+        $searchResults[$key]['score'] = $score;
+        $results[] = $searchResults[$key];
+      }
     }
 
     $results = $this->simplePaginate($results, 20);
