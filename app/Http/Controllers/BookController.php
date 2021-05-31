@@ -115,7 +115,7 @@ class BookController extends Controller
     ]);
 
     if ($request->hasFile('file')) {
-      $inputs["file"] = $inputs['barcode'] . '.pdf';
+      $inputs["file"] = $book->barcode . '.' . $request->file('file')->extension();
       $request->file->storeAs('books', $inputs["file"]);
     }
 
