@@ -14,10 +14,6 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResearchPaperController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StageController;
-use App\Mail\AccountCreatedMail;
-use App\Models\User;
-use Illuminate\Support\Facades\Mail;
-use Mailjet\Resources;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +89,8 @@ Route::group(['middleware' => ['admin']], function () {
   Route::post('books/instance/{book_instance}/return', [BookInstanceController::class, 'return_book'])->name('book-instances-return');
   Route::get('books/instance/{book_instance}', [BookInstanceController::class, 'show_instance'])->name('book-instance');
 
+  Route::get('books/borrowed', [BookInstanceController::class, 'borrowed'])->name('books-borrowed');
+
   Route::post('json/fields', [FieldController::class, 'json_search'])->name('json-fields');
   Route::post('json/fields/insert', [FieldController::class, 'json_store'])->name('json-fields-insert');
   Route::post('json/fields/get', [FieldController::class, 'json_get'])->name('json-fields-get');
@@ -125,10 +123,10 @@ Route::group(['middleware' => ['admin']], function () {
   Route::get('projects/json', [ProjectController::class, 'get_projects_json'])->name('projects-json');
 });
 
-Route::group(['middleware' => ['active.user']], function() {
-  Route::get('/books/{book}/download', [BookController::class, 'download'])->name('book-download');
+Route::group(['middleware' => ['active.user']], function () {
+  Route::get('/books/{book}/content', [BookController::class, 'download'])->name('book-download');
 
-  Route::get('/papers/{paper}/download', [ResearchPaperController::class, 'download'])->name('paper-download');
+  Route::get('/papers/{paper}/content', [ResearchPaperController::class, 'download'])->name('paper-download');
 
-  Route::get('/projects/{project}/download', [ProjectController::class, 'download'])->name('project-download');
+  Route::get('/projects/{project}/content', [ProjectController::class, 'download'])->name('project-download');
 });
