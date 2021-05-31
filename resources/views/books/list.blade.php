@@ -64,32 +64,6 @@
 
     </div>
     <div class="col-xl-8 order-xl-0">
-      <!-- Sort and Show Filters -->
-      {{--                <div class="d-flex justify-content-between">--}}
-      {{--                    <div class="mb-3">--}}
-      {{--                        <select id="ecom-results-show" name="ecom-results-show" class="form-control form-control-sm" size="1">--}}
-      {{--                            <option value="0" disabled selected>SHOW</option>--}}
-      {{--                            <option value="9">9</option>--}}
-      {{--                            <option value="18">18</option>--}}
-      {{--                            <option value="36">36</option>--}}
-      {{--                            <option value="72">72</option>--}}
-      {{--                        </select>--}}
-      {{--                    </div>--}}
-      {{--                    <div class="mb-3">--}}
-      {{--                        <select id="ecom-results-sort" name="ecom-results-sort" class="form-control form-control-sm" size="1">--}}
-      {{--                            <option value="0" disabled selected>SORT BY</option>--}}
-      {{--                            <option value="1">Popularity</option>--}}
-      {{--                            <option value="2">Name (A to Z)</option>--}}
-      {{--                            <option value="3">Name (Z to A)</option>--}}
-      {{--                            <option value="4">Price (Lowest to Highest)</option>--}}
-      {{--                            <option value="5">Price (Highest to Lowest)</option>--}}
-      {{--                            <option value="6">Sales (Lowest to Highest)</option>--}}
-      {{--                            <option value="7">Sales (Highest to Lowest)</option>--}}
-      {{--                        </select>--}}
-      {{--                    </div>--}}
-      {{--                </div>--}}
-      <!-- END Sort and Show Filters -->
-
       <!-- Books -->
       @foreach ($books as $book)
       <div class="block block-rounded pr-0 mb-2" style="height: 98px">
