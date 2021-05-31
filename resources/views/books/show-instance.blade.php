@@ -29,7 +29,7 @@
             @elseif($book_instance->status == 'loaned')
                 <div class="col">
                     <div class="block block-rounded block-link-shadow text-center">
-                        <a class="block block-rounded block-link-shadow text-center" href="javascript:$('#modal-return-book').modal('show');">
+                        <a class="block block-rounded block-link-shadow text-center" href="javascript:showReturnBookModal({{ $book_instance->id }})">
                             <div class="block-content block-content-full">
                                 <div class="font-size-h2 text-danger">
                                     <i class="fa fa-exchange-alt"></i>
@@ -105,6 +105,7 @@
 
         <script>
           function showMemberModal() {
+            userBarcode = true;
             $("#member-input").val("");
             $("#member-name").text("");
             $("#lend").prop("disabled", true);
@@ -122,6 +123,10 @@
 
                     $('#modal-member-input').on('shown.bs.modal', function (e) {
                         $('#member-input').focus();
+                    });
+
+                    $('#modal-member-input').on('hidden.bs.modal', function (e) {
+                        userBarcode = false;
                     });
                 });
             });

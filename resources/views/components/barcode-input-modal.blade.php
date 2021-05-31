@@ -4,7 +4,7 @@
             $('#modal-barcode-input').keypress(e => {
                 if (e.which === 13) {
                     e.preventDefault()
-                    find_barcode();
+                    gotoBarcode($('#barcode-scan-input').val());
                 }
             })
 
@@ -34,7 +34,7 @@
         <div class="block-content block-content-full text-right border-top">
           <button type="button" class="btn btn-primary" onclick="gotoBarcode()">بحث
           </button>
-          <button type="button" class="btn btn-alt-primary mr-1" onclick="resetBarcodeInput()"
+          <button type="button" class="btn btn-alt-primary mr-1"
             data-dismiss="modal">إغلاق</button>
         </div>
       </div>

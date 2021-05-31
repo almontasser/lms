@@ -47,7 +47,7 @@ function printBarcode(base64_array, barcode_array) {
     pages += `
       <img src="data:image/png;base64,${base64_array[i]}"/>
       <p>${barcode}</p>
-    `
+    `;
   });
 
   var popupWin = window.open();
@@ -78,39 +78,15 @@ function printBarcode(base64_array, barcode_array) {
   popupWin.document.close();
 }
 
-let capturing = false;
-let barcode = "";
+let userBarcode = false;
 
-function gotoBarcode() {
+function gotoBarcode(barcode) {
   window.location.href = "/barcode/" + barcode;
 }
 
-function resetBarcodeInput() {
-  capturing = false;
-  barcode = "";
-}
-
 document.onkeydown = function(e) {
-  if (e.key === "F9") {
+  if (e.key === "F9" && !userBarcode) {
     e.preventDefault();
-    capturing = true;
-    barcode = "";
     $("#modal-barcode-input").modal("show");
-  }
-
-  if (capturing) {
-    if (e.key >= "0" && e.key <= "9") {
-      e.preventDefault();
-      barcode += e.key;
-      $("#barcode-scan-input").val(barcode);
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      capturing = false;
-      gotoBarcode();
-    } else if (e.key === "Escape") {
-      resetBarcodeInput();
-    } else {
-      e.preventDefault();
-    }
   }
 };
