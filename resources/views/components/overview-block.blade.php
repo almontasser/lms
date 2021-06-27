@@ -1,6 +1,6 @@
 @props(['link', ])
 
-<div class="col-6 col-lg-3">
+<div class="col-md-4 col-sm-6 col-12">
   <a class="block block-rounded block-link-shadow text-center" href="{{ $link }}">
       <div class="block-content block-content-full">
           <div class="font-size-h2">

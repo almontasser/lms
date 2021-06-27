@@ -63,7 +63,7 @@ span,
   <![endif]-->
   </head>
   <body dir="rtl" style="height: 100%; margin: 0; -webkit-text-size-adjust: none; font-family: 'Tajawal', Helvetica, Arial, sans-serif; background-color: #F2F4F6; color: #51545E; width: 100%;">
-    <span class="preheader" style="visibility: hidden; mso-hide: all; font-size: 1px; line-height: 1px; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; display: none;">مربحا بك في مكتبة كلية التقنية الصناعية مصراتة</span>
+    <span class="preheader" style="visibility: hidden; mso-hide: all; font-size: 1px; line-height: 1px; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; display: none;">مربحا بك في {{ Setting:get("app_name") }}</span>
     <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; margin: 0; padding: 0; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; background-color: #F2F4F6;" bgcolor="#F2F4F6">
       <tr>
         <td align="center" style="word-break: break-word; font-family: 'Tajawal', Helvetica, Arial, sans-serif; font-size: 16px;">
@@ -71,7 +71,7 @@ span,
             <tr>
               <td class="email-masthead" style="word-break: break-word; font-family: 'Tajawal', Helvetica, Arial, sans-serif; font-size: 16px; padding: 25px 0; text-align: center;" align="center">
                 <a href="{{ route('home') }}" class="f-fallback email-masthead_name" style="font-size: 16px; font-weight: bold; color: #A8AAAF; text-decoration: none; text-shadow: 0 1px 0 white;">
-                مكتبة كلية التقنية الصناعية مصراتة
+                  {{ Setting:get("app_name") }}
               </a>
               </td>
             </tr>
@@ -84,7 +84,7 @@ span,
                     <td class="content-cell" style="word-break: break-word; font-family: 'Tajawal', Helvetica, Arial, sans-serif; font-size: 16px; padding: 45px;">
                       <div class="f-fallback">
                         <h1 style="margin-top: 0; color: #333333; font-size: 22px; font-weight: bold; text-align: right;">مرحبا، {{$name}}!</h1>
-                        <p style="margin: .4em 0 1.1875em; font-size: 16px; line-height: 1.625; color: #51545E;">مرحبا بك في مكتبة كلية التقنية الصناعية مصراتة، لقد تم إنشاء حسابك بنجاح، لتسجيل الدخول قم بالضغط على الزر التالي:</p>
+                        <p style="margin: .4em 0 1.1875em; font-size: 16px; line-height: 1.625; color: #51545E;">مرحبا بك في {{ Setting:get("app_name") }}، لقد تم إنشاء حسابك بنجاح، لتسجيل الدخول قم بالضغط على الزر التالي:</p>
                         <!-- Action -->
                         <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; margin: 30px auto; padding: 0; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; text-align: center;">
                           <tr>
@@ -152,11 +152,10 @@ span,
                 <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation" style="width: 570px; margin: 0 auto; padding: 0; -premailer-width: 570px; -premailer-cellpadding: 0; -premailer-cellspacing: 0; text-align: center;">
                   <tr>
                     <td class="content-cell" align="center" style="word-break: break-word; font-family: 'Tajawal', Helvetica, Arial, sans-serif; font-size: 16px; padding: 45px;">
-                      <p class="f-fallback sub align-center" style="margin: .4em 0 1.1875em; line-height: 1.625; text-align: center; font-size: 13px; color: #A8AAAF;">&copy; <?php echo date("Y"); ?> كلية التقنية الصناعية مصراتة. جميع الحقوق محفوظة.</p>
+                      <p class="f-fallback sub align-center" style="margin: .4em 0 1.1875em; line-height: 1.625; text-align: center; font-size: 13px; color: #A8AAAF;">&copy; <?php echo date("Y"); ?> {{ Setting:get("app_name") }}. جميع الحقوق محفوظة.</p>
                       <p class="f-fallback sub align-center" style="margin: .4em 0 1.1875em; line-height: 1.625; text-align: center; font-size: 13px; color: #A8AAAF;">
-                        كلية التقنية الصناعية مصراتة
-                        <br>شارع الإذاعة
-                        <br>خلف مبنى الإذاعة
+                        {{ Setting:get("app_name") }}
+                        <br>{{ Setting::get("address") }}
                       </p>
                     </td>
                   </tr>

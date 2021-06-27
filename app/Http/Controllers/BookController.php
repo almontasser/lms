@@ -91,9 +91,9 @@ class BookController extends Controller
       $inputs['thumbnail'] = $thumbnail;
     }
 
-    Book::create($inputs);
+    $book = Book::create($inputs);
 
-    return redirect()->route('books');
+    return redirect()->route('book-show', ['book' => $book]);
   }
 
   public function edit(Book $book)
@@ -135,7 +135,7 @@ class BookController extends Controller
 
     $book->update($inputs);
 
-    return redirect()->route('books');
+    return redirect()->route('book-show', ['book' => $book]);
   }
 
   public function index()
@@ -153,7 +153,7 @@ class BookController extends Controller
     $path = storage_path('app/books/' . $book->file);
     return Response::make(file_get_contents($path), 200, [
       'Content-Type'        => 'application/pdf',
-      'Content-Disposition' => 'inline; filename="'.$book->title.'"'
+      'Content-Disposition' => 'inline; filename="' . $book->title . '"'
     ]);
   }
 
@@ -165,20 +165,18 @@ class BookController extends Controller
   function csvToArray($filename = '', $delimiter = ',')
   {
     if (!file_exists($filename) || !is_readable($filename))
-        return false;
+      return false;
 
     $header = null;
     $data = array();
-    if (($handle = fopen($filename, 'r')) !== false)
-    {
-        while (($row = fgetcsv($handle, 1000, $delimiter)) !== false)
-        {
-            if (!$header)
-                $header = $row;
-            else
-                $data[] = array_combine($header, $row);
-        }
-        fclose($handle);
+    if (($handle = fopen($filename, 'r')) !== false) {
+      while (($row = fgetcsv($handle, 1000, $delimiter)) !== false) {
+        if (!$header)
+          $header = $row;
+        else
+          $data[] = array_combine($header, $row);
+      }
+      fclose($handle);
     }
 
     return $data;
@@ -190,8 +188,7 @@ class BookController extends Controller
     $file = $request->file('csv');
 
     $books = $this->csvToArray($file->getRealPath());
-    for ($i = 0; $i < count($books); $i ++)
-    {
+    for ($i = 0; $i < count($books); $i++) {
       do {
         $barcode = generateEAN13('100');
       } while (!Book::where('barcode', $barcode)->get()->isEmpty());
@@ -211,7 +208,7 @@ class BookController extends Controller
 
       $instance_number = 0;
 
-      for ($j = 0; $j < $books[$i]['NO']-1; $j++) {
+      for ($j = 0; $j < $books[$i]['NO'] - 1; $j++) {
         $instance_number++;
         if ($instance_number > 99) {
           break;
@@ -233,7 +230,8 @@ class BookController extends Controller
     return 'DONE';
   }
 
-  public function get_books_json() {
+  public function get_books_json()
+  {
     return [
       'data' => Book::all('id', 'title', 'author', 'publisher', 'edition', 'ISBN', 'barcode')->toArray()
     ];

@@ -36,6 +36,14 @@ class AppServiceProvider extends ServiceProvider
       return "<?php endif; ?>";
     });
 
+    Blade::directive('isSuperAdmin', function () {
+      return "<?php if(Auth::user() && Auth::user()->isSuperAdmin()): ?>";
+    });
+
+    Blade::directive('endisSuperAdmin', function () {
+      return "<?php endif; ?>";
+    });
+
     Blade::directive('isSelected', function ($field, $value, $model) {
       return "<?php if (old($field, $model ? $model[$field] : null) == $value) { echo 'selected'; }";
     });

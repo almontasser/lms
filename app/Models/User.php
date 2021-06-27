@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use function PHPSTORM_META\type;
+
 class User extends Authenticatable
 {
   use HasFactory, Notifiable;
@@ -63,12 +65,17 @@ class User extends Authenticatable
 
   public function isAdmin()
   {
-    return $this->type == 3;
+    return $this->type == 3 || $this->type == 5;
   }
 
   public function isUnregistered()
   {
     return $this->type == 4;
+  }
+
+  public function isSuperAdmin()
+  {
+    return $this->type == 5;
   }
 
   public function getPicture()

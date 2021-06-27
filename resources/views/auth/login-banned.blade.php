@@ -12,14 +12,14 @@
             <!-- Header -->
             <div class="text-center">
               <p class="mb-2">
-                <img src="media/cit-logo.png"
+                <img src="{{ Setting::get("app_logo") }}"
                   style="width: 80px; height: 80px; object-fit: contain; display: block; margin: 0 auto;" alt="">
               </p>
               <h1 class="h4 mb-1">
                 إنشاء حساب
               </h1>
               <h2 class="h6 font-w400 text-muted mb-3">
-                مكتبة كلية التقنية الصناعية - مصراته
+                {{ Setting:get("app_name") }}
               </h2>
             </div>
             <!-- END Header -->
@@ -35,7 +35,7 @@
 
     <!-- Footer -->
     <div class="font-size-sm text-center text-muted py-3">
-      <strong>مكتبة كلية التقنية الصناعية مصراته</strong> &copy; <span data-toggle="year-copy"></span>
+      <strong>{{ Setting:get("app_name") }}</strong> &copy; <span data-toggle="year-copy"></span>
     </div>
     <!-- END Footer -->
   </div>

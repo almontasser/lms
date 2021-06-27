@@ -31,7 +31,7 @@
     </div>
     <div class="block-content">
       <p class="font-size-sm text-muted">
-        مكتبة كلية التقنية الصناعية مصراته
+        {{ Setting:get("app_name") }}
       </p>
     </div>
   </div>

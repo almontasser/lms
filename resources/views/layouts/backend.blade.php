@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-  <title>مكتبة كلية التقنية الصناعية مصراتة</title>
+  <title>{{ Setting::get('app_name') }}</title>
 
   <meta name="description"
-    content="موقع مكتبة كلية التقنية الصناعية - مصراتة">
+    content="{{ Setting::get('app_name') }}">
   <meta name="author" content="محمود المنتصر">
   <meta name="robots" content="noindex, nofollow">
 
@@ -51,16 +51,16 @@
       <div class="content-header bg-white-5">
         <!-- Logo -->
         <a class="font-w600 text-dual text-center" style="width: 100%; text-align: center;" href="/">
-          <img src="{{ asset('media/cit-logo.png') }}"
+          <img src="{{ Setting::get("app_logo") }}"
             style="background-color: white; border-radius: 50%; padding: 4px; width: 80px; height: 80px; object-fit: contain; display: block; margin: 0 auto;"
             alt="">
           <span class="smini-visible">
-            <img src="{{ asset('media/cit-logo.png') }}"
+            <img src="{{ Setting::get("app_logo") }}"
               style="background-color: white; border-radius: 50%; padding: 4px; width: 24px;" alt="">
           </span>
           <span class="smini-hide font-size-h5 tracking-wider text-center"
             style="padding-top: 8px; display:inline-block;">
-            مكتبة كلية التقنية الصناعية مصراته
+            {{ Setting::get('app_name') }}
           </span>
         </a>
         <!-- END Logo -->
@@ -249,6 +249,14 @@
                 </li>
               </ul>
             </li>
+            @isSuperAdmin()
+            <li class="nav-main-item open">
+              <a class="nav-main-link{{ request()->is('settings') ? ' active' : '' }}" href="{{ route('settings') }}">
+                <i class="nav-main-link-icon si si-settings"></i>
+                <span class="nav-main-link-name">الإعدادات</span>
+              </a>
+            </li>
+            @endisSuperAdmin()
             @endisAdmin()
           </ul>
         </div>
@@ -494,9 +502,16 @@
               href="https://fb.me/MahmoudAlmontasser" target="_blank">محمود المنتصر</a>
           </div>
           <div class="col-sm-6 order-sm-1 py-1 text-center text-sm-left">
-            <a class="font-w600" href="https://facebook.com/كلية-التقنية-الصناعية-مصراتة-309978059153182/"
-              target="_blank">كلية التقنية
-              الصناعية</a> &copy; <span data-toggle="year-copy"></span>
+            <?php
+              $facebook_page = Setting::get("facebook_page");
+              if ($facebook_page) { ?>
+            <a class="font-w600" href="{{$facebook_page}}"
+              target="_blank">{{ Setting::get("app_name") }}</a>
+            <?php } else { ?>
+              <span class="font-w600">{{ Setting::get("app_name") }}</span>
+            <?php } ?>
+              &copy; <span data-toggle="year-copy"></span>
+
           </div>
         </div>
       </div>

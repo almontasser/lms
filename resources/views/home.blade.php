@@ -31,14 +31,14 @@
       </x-slot>
     </x-overview-block>
 
-    <x-overview-block link="javascript:void">
+    {{-- <x-overview-block link="javascript:void">
       <x-slot name="content">
         <span class="text-dark">3,586,125</span>
       </x-slot>
       <x-slot name="title">
         <span class="text-dark">عدد الزوار</span>
       </x-slot>
-    </x-overview-block>
+    </x-overview-block> --}}
   </div>
 
   <h2 class="text-center">عن ماذا تبحث</h2>

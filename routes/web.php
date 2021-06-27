@@ -13,6 +13,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResearchPaperController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\StageController;
 
 /*
@@ -54,6 +55,11 @@ Route::get('projects/show/{project}', [ProjectController::class, 'show'])->name(
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 Route::get('barcode/{barcode}', [BarcodeController::class, 'find_barcode'])->name('find-barcode');
+
+Route::group(['middleware' => ['super.admin']], function () {
+  Route::get('settings', [SettingsController::class, 'index'])->name('settings');
+  Route::post('settings', [SettingsController::class, 'update']);
+});
 
 Route::group(['middleware' => ['admin']], function () {
   Route::get('users/index', [UserController::class, 'index'])->name('users');
