@@ -19,7 +19,7 @@
                 إنشاء حساب
               </h1>
               <h2 class="h6 font-w400 text-muted mb-3">
-                {{ Setting:get("app_name") }}
+                {{ Setting::get("app_name") }}
               </h2>
             </div>
             <!-- END Header -->
@@ -34,7 +34,7 @@
 
     <!-- Footer -->
     <div class="font-size-sm text-center text-muted py-3">
-      <strong>{{ Setting:get("app_name") }}ه</strong> &copy; <span data-toggle="year-copy"></span>
+      <strong>{{ Setting::get("app_name") }}ه</strong> &copy; <span data-toggle="year-copy"></span>
     </div>
     <!-- END Footer -->
   </div>

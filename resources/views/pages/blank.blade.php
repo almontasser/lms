@@ -31,7 +31,7 @@
     </div>
     <div class="block-content">
       <p class="font-size-sm text-muted">
-        {{ Setting:get("app_name") }}
+        {{ Setting::get("app_name") }}
       </p>
     </div>
   </div>
