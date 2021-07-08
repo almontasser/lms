@@ -58,7 +58,7 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('barcode/{barcode}', [BarcodeController::class, 'find_barcode'])->name('find-barcode');
 
 if (!Setting::get('settings_initiated')) {
-  Route::post('settings', [SettingsController::class, 'update']);
+  Route::post('settings', [SettingsController::class, 'update'])->name('settings');
 } else {
   Route::group(['middleware' => ['super.admin']], function () {
     Route::get('settings', [SettingsController::class, 'index'])->name('settings');
