@@ -12,5 +12,8 @@ return [
   ],
   'facebook_page' => [
     'default_value' => ''
+  ],
+  'settings_initiated' => [
+    'default_value' => false
   ]
 ];

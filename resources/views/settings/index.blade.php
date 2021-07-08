@@ -48,6 +48,32 @@
           </div>
         </div>
       </div>
+      <?php if (isset($initiation) && $initiation) { ?>
+        <div class="row items-push">
+          <div class="col-lg-8 col-xl-5">
+            <div class="form-group">
+              <label for="username">إسم المستخدم</label>
+              <input type="text" class="form-control" id="username" name="username">
+            </div>
+            <div class="form-group">
+              <label for="useremail">البريد الإلكتروني</label>
+              <input type="text" class="form-control" id="useremail" name="useremail">
+            </div>
+            <div class="form-group">
+              <label for="userid">الرقم التعريفي</label>
+              <input type="text" class="form-control" id="userid" name="userid">
+            </div>
+            <div class="form-group">
+              <label for="userphone">رقم الهاتف</label>
+              <input type="text" class="form-control" id="userphone" name="userphone">
+            </div>
+            <div class="form-group">
+              <label for="userpassword">كلمة المرور</label>
+              <input type="password" class="form-control" id="userpassword" name="userpassword">
+            </div>
+          </div>
+        </div>
+      <?php } ?>
       <div class="row items-push">
         <div class="col-lg-7 offset-lg-4">
           <button type="submit" class="btn btn-alt-primary">
