@@ -20,7 +20,7 @@ class SettingsController extends Controller
     Setting::set("address", $request->address);
     Setting::set("facebook_page", $request->facebook_page);
     if ($request->hasFile('app_logo')) {
-      Setting::set("app_logo", 'uploads/' . $request->file("app_logo")->store("logos", "uploads"));
+      Setting::set("app_logo", '/uploads/' . $request->file("app_logo")->store("logos", "uploads"));
     }
 
     if (isset($request->username)) {
