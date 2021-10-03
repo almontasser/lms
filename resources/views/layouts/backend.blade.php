@@ -329,8 +329,8 @@
                   <span class="font-size-sm font-w500">البروفايل</span>
                   <span class="badge badge-pill badge-primary mr-2">1</span>
                 </a> --}}
-                <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                  <span class="font-size-sm font-w500">الإعدادت</span>
+                <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ route('settings') }}">
+                  <span class="font-size-sm font-w500">الإعدادات</span>
                 </a>
                 <div role="separator" class="dropdown-divider"></div>
                 <form action="{{ route('logout') }}" method="POST">
