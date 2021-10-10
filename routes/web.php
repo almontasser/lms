@@ -15,6 +15,7 @@ use App\Http\Controllers\ResearchPaperController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\StageController;
+use Illuminate\Support\Facades\URL;
 use JanisKelemen\Setting\Facades\Setting;
 
 /*
@@ -27,6 +28,8 @@ use JanisKelemen\Setting\Facades\Setting;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+URL::forceScheme('https');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
