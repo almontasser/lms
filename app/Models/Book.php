@@ -25,6 +25,7 @@ class Book extends Model
     'ISBN',
     'category',
     'price',
+    'registration_number',
     'row',
     'col',
     'rack',
@@ -50,23 +51,27 @@ class Book extends Model
       $tnt->loadConfig(TNTConfig());
       $tnt->selectIndex("content.index");
       $index = $tnt->getIndex();
-      $index->insert(['id' => "book_$book->id", 'title' => $book->title,
+      $index->insert([
+        'id' => "book_$book->id", 'title' => $book->title,
         'author' => $book->author, 'publisher' => $book->publisher,
-        'description' => $book->description, 'subject' => $book->subject]);
+        'description' => $book->description, 'subject' => $book->subject
+      ]);
     });
 
-    self::updated(function($book) {
+    self::updated(function ($book) {
       $tnt = new TNTSearch();
       $tnt->loadConfig(TNTConfig());
       $tnt->selectIndex("content.index");
       $index = $tnt->getIndex();
-      $index->update("book_$book->id", ['id' => "book_$book->id",
+      $index->update("book_$book->id", [
+        'id' => "book_$book->id",
         'title' => $book->title, 'author' => $book->author,
         'publisher' => $book->publisher, 'description' => $book->description,
-        'subject' => $book->subject]);
+        'subject' => $book->subject
+      ]);
     });
 
-    self::deleted(function($book) {
+    self::deleted(function ($book) {
       $tnt = new TNTSearch();
       $tnt->loadConfig(TNTConfig());
       $tnt->selectIndex("content.index");

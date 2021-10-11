@@ -187,6 +187,12 @@ $barcodeImage = generateBarcodeImage($barcode);
                     {{$book->category}}
                   </td>
                 </tr>
+                <tr>
+                  <td>رقم التسجيل</td>
+                  <td>
+                    {{$book->registration_number}}
+                  </td>
+                </tr>
               </tbody>
             </table>
             <table class="table table-striped table-borderless">

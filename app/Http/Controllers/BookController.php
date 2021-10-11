@@ -44,6 +44,7 @@ class BookController extends Controller
       'ISBN' => 'max:50',
       'category' => 'max:255',
       'price' => '',
+      'registration_number' => '',
       'lending_days' => 'integer|between:0,14',
       'row' => '',
       'col' => '',
@@ -63,7 +64,7 @@ class BookController extends Controller
 
     $inputs = $request->only([
       'title', 'author', 'publisher', 'subject', 'field_id', 'specialty_id', 'print_year',
-      'edition', 'ISBN', 'category', 'price', 'row', 'col', 'rack', 'notes', 'description',
+      'edition', 'ISBN', 'category', 'price', 'registration_number', 'row', 'col', 'rack', 'notes', 'description',
       'lending_days'
     ]);
 
@@ -110,7 +111,7 @@ class BookController extends Controller
 
     $inputs = $request->only([
       'title', 'author', 'publisher', 'subject', 'field_id', 'specialty_id', 'print_year',
-      'edition', 'ISBN', 'category', 'price', 'row', 'col', 'rack', 'notes', 'description',
+      'edition', 'ISBN', 'category', 'price', 'registration_number', 'row', 'col', 'rack', 'notes', 'description',
       'lending_days'
     ]);
 
