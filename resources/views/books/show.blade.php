@@ -94,7 +94,7 @@ $barcodeImage = generateBarcodeImage($barcode);
             <div>
               <?php $count = $book->bookInstances->where('status', 'available')->count() ?>
               <div class="font-size-sm font-w600 {{$count > 0 ? 'text-success' : 'text-danger'}} text-left">{{ $count > 0 ? 'متوفر' : 'غير متوفر للاعارة'}}</div>
-              <div class="font-size-sm text-muted text-left">{{$count}} نسخة</div>
+              <div class="font-size-sm text-muted text-left">{{$count+1}} نسخة</div>
             </div>
           </div>
           <p class="mt-2" style="text-align: justify" dir="auto">{{$book->description}}</p>
