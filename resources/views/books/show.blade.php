@@ -365,4 +365,28 @@ $barcodeImage = generateBarcodeImage($barcode);
             One.helpers('magnific-popup');
         });
 </script>
+  @if (isset($new_barcodes))
+    <script>
+        <?php
+        $images = '';
+        $barcodes = '';
+        foreach($new_barcodes as $barcode) {
+            if ($images != '') {
+                $images .= ',';
+            }
+            $images .= '\'' . generateBarcodeImage($barcode) . '\'';
+            if ($barcodes != '') {
+                $barcodes .= ',';
+            }
+            $barcodes .= '\'' . $barcode . '\'';
+        }
+        $images = '[' . $images . ']';
+        $barcodes = '[' . $barcodes . ']';
+        ?>
+        document.addEventListener("DOMContentLoaded", function (event) {
+          printBarcode(<?= $images ?>, <?= $barcodes ?>);
+          window.location.href = '<?= $url ?>';
+        });
+    </script>
+  @endif
 @endsection

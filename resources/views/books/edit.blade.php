@@ -60,7 +60,7 @@
       <div class="form-row">
         <x-form-input field="print_year" title="سنة النشر" :model="$book" class="col-md-4">
         </x-form-input>
-        <x-form-input field="edition" title="رقم الطبعة" type="number" :model="$book" class="col-md-4">
+        <x-form-input field="edition" title="الطبعة" :model="$book" class="col-md-4">
         </x-form-input>
         <x-form-input field="ISBN" title="رقم التعريف الدولي" :model="$book" class="col-md-4">
         </x-form-input>
@@ -69,7 +69,8 @@
         <x-form-input field="category" title="التصنيف" :model="$book"  class="col-md-4"></x-form-input>
         {{-- <x-form-input field="price" title="سعر الكتاب" type="number" :model="$book" class="col-md-4"></x-form-input> --}}
         <x-form-input field="registration_number" title="رقم التسجيل" :model="$book" class="col-md-4"></x-form-input>
-        <x-form-input field="lending_days" title="مدة الإعارة (بالأيام)" type="number" :model="$book" class="col-md-4"></x-form-input>
+        {{-- <x-form-input field="lending_days" title="مدة الإعارة (بالأيام)" type="number" :model="$book" class="col-md-4"></x-form-input> --}}
+        @if (!$edit) <x-form-input field="copies" title="عدد النسخ" type="number" :model="$book" class="col-md-4"></x-form-input> @endif
       </div>
       <div class="form-row">
         <x-form-input field="row" title="الصف" type="number" :model="$book" class="col-md-4"></x-form-input>

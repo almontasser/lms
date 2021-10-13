@@ -46,6 +46,7 @@ class BookController extends Controller
       'price' => '',
       'registration_number' => '',
       'lending_days' => 'integer|between:0,14',
+      'copies' => 'integer|between:0,99',
       'row' => '',
       'col' => '',
       'rack' => '',
@@ -94,7 +95,40 @@ class BookController extends Controller
 
     $book = Book::create($inputs);
 
-    return redirect()->route('book-show', ['book' => $book]);
+    $new_barcodes = [];
+    $new_barcodes[] = $inputs['barcode'];
+
+    if (isset($request['copies'])) {
+      $copies = $request['copies'];
+      $instance_number = 0;
+
+      for ($i = 0; $i < $copies - 1; $i++) {
+        $instance_number++;
+        if ($instance_number > 99) {
+          break;
+        }
+
+        $instance_number_str = ($instance_number > 9 ? substr($instance_number, 0, 1) : '0') . ($instance_number % 10);
+
+        $barcode = substr(substr_replace($book->barcode, $instance_number_str, 1, 2), 0, -1);
+        $barcode = generateEAN13Checksum($barcode);
+
+        BookInstance::create([
+          'book_id' => $book->id,
+          'barcode' => $barcode,
+          'status' => 'available',
+          'instance_number' => $instance_number
+        ]);
+
+        $new_barcodes[] = $barcode;
+      }
+    }
+
+    return view('books.show', [
+      'book' => $book,
+      'new_barcodes' => $new_barcodes,
+      'url' => route('book-show', ['book' => $book]),
+    ]);
   }
 
   public function edit(Book $book)
