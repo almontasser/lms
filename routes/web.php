@@ -97,7 +97,7 @@ Route::group(['middleware' => ['admin']], function () {
   Route::get('books/{book}/instances', [BookInstanceController::class, 'index'])->name('book-instances');
   Route::post('books/{book}/instances', [BookInstanceController::class, 'store']);
   Route::get('books/{book}/instances/generate', [BookInstanceController::class, 'show_generate'])->name('book-instances-generate');
-  Route::post('books/{book}/instances/generate', [BookInstanceController::class, 'generate'])->name('book-instances-generate');
+  Route::post('books/{book}/instances/generate', [BookInstanceController::class, 'generate']);
 
   Route::post('books/instance/{book_instance}/lend', [BookInstanceController::class, 'lend'])->name('book-instances-lend');
   Route::post('books/instance/{book_instance}/return', [BookInstanceController::class, 'return_book'])->name('book-instances-return');
