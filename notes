@@ -1,0 +1,9 @@
+1. Install Docker
+2. Download the codebase
+3. Launch the database,  and wait for it to fully start:
+
+      docker compose up -d mysql
+
+4. Launch the application:
+
+      docker-compose up -d

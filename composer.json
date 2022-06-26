@@ -13,7 +13,7 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "janiskelemen/laravel-setting": "^1.2",
+        "janiskelemen/laravel-setting": "^2.0",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "mailjet/laravel-mailjet": "^3.0",

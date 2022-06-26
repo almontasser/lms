@@ -1,0 +1,6 @@
+CREATE TABLE settings (
+  `key` VARCHAR(250) NOT NULL,
+	`value` LONGTEXT NULL,
+	`locale` VARCHAR(50) NULL DEFAULT NULL,
+	PRIMARY KEY (`key`)
+);
