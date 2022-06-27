@@ -6,3 +6,4 @@ php artisan migrate
 php artisan index:content
 php artisan cache:clear
 php artisan route:cache
+php-fpm
