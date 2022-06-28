@@ -16,6 +16,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\StageController;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\URL;
 use JanisKelemen\Setting\Facades\Setting;
 
 /*
@@ -31,7 +32,7 @@ use JanisKelemen\Setting\Facades\Setting;
 
 // force https if production
 if (App::environment('production')) {
-  Route::forceScheme('https');
+  URL::forceScheme('https');
 }
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
