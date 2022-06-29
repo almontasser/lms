@@ -1,0 +1,59 @@
+#!/bin/bash
+
+
+export APP_NAME=${APP_NAME:-Arc}
+export APP_ENV=${APP_ENV:-local}
+export APP_KEY=${APP_KEY:-base64:rpDVB589rMWrRUVkcviIAOfnrQo/MOdfWdjOd3t+K5A=}
+export APP_DEBUG=${APP_DEBUG:-true}
+export LOG_CHANNEL=${LOG_CHANNEL:-stack}
+export APP_URL=${APP_URL:-https://arc.test}
+
+export DB_CONNECTION=${DB_CONNECTION:-mysql}
+export DB_HOST=${DB_HOST:-database}
+export DB_PORT=${DB_PORT:-3306}
+export DB_DATABASE=${DB_DATABASE:-arc}
+export DB_USERNAME=${DB_USERNAME:-arc}
+export DB_PASSWORD=${DB_PASSWORD:-arc}
+
+export MAIL_DRIVER=${MAIL_DRIVER:-smtp}
+export MAIL_HOST=${MAIL_HOST:-mailtrap.io}
+export MAIL_PORT=${MAIL_PORT:-2525}
+export MAIL_USERNAME=${MAIL_USERNAME:-null}
+export MAIL_PASSWORD=${MAIL_PASSWORD:-null}
+export MAIL_ENCRYPTION=${MAIL_ENCRYPTION:-null}
+
+export CACHE_DRIVER=${CACHE_DRIVER:-redis}
+export SESSION_DRIVER=${SESSION_DRIVER:-redis}
+export QUEUE_DRIVER=${QUEUE_DRIVER:-redis}
+
+export SESSION_DRIVER=${SESSION_DRIVER:-file}
+export SESSION_LIFETIME=${SESSION_LIFETIME:-120}
+
+export REDIS_HOST_PORT=${REDIS_HOST_PORT:-6379}
+
+export REDIS_HOST=${REDIS_HOST:-redis}
+export REDIS_PASSWORD=${REDIS_PASSWORD:-null}
+export REDIS_PORT=${REDIS_HOST_PORT:-6379}
+
+export MIX_PUSHER_APP_KEY=${MIX_PUSHER_APP_KEY:-null}
+export MIX_PUSHER_APP_CLUSTER=${MIX_PUSHER_APP_CLUSTER:-null}
+
+export AUTHY_SECRET=${AUTHY_SECRET:-null}
+
+export STRIPE_MODEL=${STRIPE_MODEL:-"App\User"}
+export STRIPE_KEY=${STRIPE_KEY:-null}
+export STRIPE_SECRET=${STRIPE_SECRET:-null}
+
+export BROADCAST_DRIVER=${BROADCAST_DRIVER:-pusher}
+export PUSHER_APP_ID=${PUSHER_APP_ID:-null}
+export PUSHER_KEY=${PUSHER_KEY:-null}
+export PUSHER_SECRET=${PUSHER_SECRET:-null}
+export PUSHER_APP_CLUSTER=${PUSHER_APP_CLUSTER:-mt1}
+
+export SENTRY_DSN=${SENTRY_DSN:-null}
+export LOGGLY_TOKEN=${LOGGLY_TOKEN:-null}
+
+export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-}
+export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-}
+export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-eu-central-1}
+export AWS_BUCKET=${AWS_BUCKET:-arc-dev}

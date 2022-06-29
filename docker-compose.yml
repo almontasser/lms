@@ -1,64 +1,48 @@
 version: "3"
+
 services:
-  #PHP Service
-  app:
-    build: .
-    entrypoint: /usr/local/bin/docker-php-entrypoint
-    command: ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
-    volumes:
-      - ./src:/var/www/app
-    restart: unless-stopped
-    ports:
-      - 8000:80
-    depends_on:
-      - db
-    networks:
-      - app-network
+    web:
+        container_name: web
+        build:
+            context: .
+            args:
+                - GITHUB_TOKEN=${GITHUB_TOKEN}
+        links:
+            - database
+            - redis
+        expose:
+            - 80
+            - 443
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - .:/app:delegated
+        environment:
+          VIRTUAL_HOST: "127.0.0.1:80"
+          REDIS_PORT: 6379
+          APP_USER_LOCAL: "true"
+          MAIL_USERNAME: ""
+          MAIL_PASSWORD: ""
 
-  #Nginx Service
-  webserver:
-    image: nginx:alpine
-    container_name: webserver
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
-    networks:
-      - app-network
+    database:
+        container_name: database
+        image: digitonic1/mysql8.0:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: arc
+            MYSQL_DATABASE: arc
+            MYSQL_USER: arc
+            MYSQL_PASSWORD: arc
+        expose:
+            - 3306
+            - 4306
+        ports:
+            - "4306:3306"
 
-  #MySQL Service
-  db:
-    image: "mysql:8.0"
-    container_name: db
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "3306:3306"
-    command: ["mysqld", "--default-authentication-plugin=mysql_native_password"]
-    environment:
-      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
-      MYSQL_ROOT_HOST: "%"
-      MYSQL_DATABASE: "${DB_DATABASE}"
-      MYSQL_USER: "${DB_USERNAME}"
-      MYSQL_PASSWORD: "${DB_PASSWORD}"
-      MYSQL_ALLOW_EMPTY_PASSWORD: 0
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
-    volumes:
-      - "./database/initdb:/docker-entrypoint-initdb.d"
-      - "./data/mysql:/var/lib/mysql"
-    networks:
-      - app-network
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
-      retries: 3
-      timeout: 5s
-
-#Docker Networks
-networks:
-  app-network:
-    driver: bridge
+    redis:
+        container_name: redis
+        image: redis:latest
+        expose:
+            - 6379
+        ports:
+            - "6379:6379"

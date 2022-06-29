@@ -20,6 +20,7 @@
         "mailjet/mailjet-apiv3-php": "^1.5",
         "phpoffice/phpspreadsheet": "^1.17",
         "picqer/php-barcode-generator": "^2.0",
+        "predis/predis": "^2.0",
         "protonemedia/laravel-cross-eloquent-search": "^2.0",
         "teamtnt/tntsearch": "^2.7"
     },
