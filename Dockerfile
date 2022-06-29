@@ -52,7 +52,7 @@ COPY ./docker/default.conf /etc/nginx/conf.d/default.conf
 
 # copy application code
 WORKDIR /var/www/app
-COPY ./src .
+COPY . .
 RUN composer dump-autoload -o \
     && chown -R :www-data /var/www/app \
     && chmod -R 775 /var/www/app/storage /var/www/app/bootstrap/cache
