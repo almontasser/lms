@@ -30,10 +30,6 @@ RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
 COPY composer.json composer.lock ./
 
 COPY docker/ /
-RUN a2enmod rewrite headers \
-    && a2ensite laravel \
-    && a2dissite 000-default \
-    && chmod +x /usr/local/bin/docker-laravel-entrypoint
 
 COPY . /var/www/laravel
 RUN composer install --optimize-autoloader --no-dev
