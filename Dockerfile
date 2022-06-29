@@ -32,6 +32,5 @@ COPY composer.json composer.lock ./
 COPY docker/ /
 
 COPY . /var/www/laravel
-RUN composer install --optimize-autoloader --no-dev
 
 CMD ["docker-laravel-entrypoint"]
