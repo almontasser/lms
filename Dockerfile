@@ -1,7 +1,14 @@
-FROM php:7.4-fpm
+FROM webdevops/php-nginx:7.4-alpine
 
-# Set working directory
-WORKDIR /var/www
+# set composer related environment variables
+ENV PATH="/composer/vendor/bin:$PATH" \
+    COMPOSER_ALLOW_SUPERUSER=1 \
+    COMPOSER_VENDOR_DIR=/var/www/vendor \
+    COMPOSER_HOME=/composer
+
+# install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && composer --ansi --version --no-interaction
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -28,32 +35,29 @@ RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
     install-php-extensions mbstring pdo_mysql zip exif pcntl gd memcached intl xml \
     bcmath sqlite3 curl imagick
 
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# add custom php-fpm pool settings, these get written at entrypoint startup
+ENV FPM_PM_MAX_CHILDREN=20 \
+    FPM_PM_START_SERVERS=2 \
+    FPM_PM_MIN_SPARE_SERVERS=1 \
+    FPM_PM_MAX_SPARE_SERVERS=3
 
-# Add user for laravel application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
+# copy entrypoint files
+COPY ./docker/docker-php-* /usr/local/bin/
+RUN dos2unix /usr/local/bin/docker-php-entrypoint
+RUN dos2unix /usr/local/bin/docker-php-entrypoint-dev
 
-# Copy existing application directory contents
-COPY . /var/www
+# copy nginx configuration
+COPY ./docker/nginx.conf /etc/nginx/nginx.conf
+COPY ./docker/default.conf /etc/nginx/conf.d/default.conf
 
-# # Copy existing application directory permissions
-# COPY --chown=www:www . /var/www
+# copy application code
+WORKDIR /var/www/app
+COPY ./src .
+RUN composer dump-autoload -o \
+    && chown -R :www-data /var/www/app \
+    && chmod -R 775 /var/www/app/storage /var/www/app/bootstrap/cache
 
-# # add root to www group
-# RUN chmod -R ug+w /var/www/storage
+EXPOSE 80
 
-# PHP Error Log Files
-RUN mkdir /var/log/php
-RUN touch /var/log/php/errors.log && chmod 777 /var/log/php/errors.log
-
-# Deployment steps
-RUN ["chmod", "+x", "/var/www/docker/run.sh"]
-
-# # Change current user to www
-# USER www
-
-# Expose port 9000 and start php-fpm server
-EXPOSE 9000
-CMD ["/var/www/docker/run.sh"]
+# run supervisor
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
