@@ -1,8 +1,0 @@
-[template]
-src   = "env/dotenv.tmpl"
-dest  = "/app/.env"
-mode  = "0640"
-gid = 33
-uid = 999
-keys = [
-]

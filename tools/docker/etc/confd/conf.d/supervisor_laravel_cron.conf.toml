@@ -1,6 +1,0 @@
-[template]
-src   = "supervisor/laravel_cron.conf.tmpl"
-dest  = "/etc/supervisor/conf.d/laravel_cron.conf"
-mode  = "0644"
-keys = [
-]

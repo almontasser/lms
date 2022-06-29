@@ -1,36 +1,42 @@
-FROM digitonic1/php7.4-nginx:latest
+FROM php:7.4-apache
 
-# Install node npm
-RUN curl -sL https://deb.nodesource.com/setup_11.x > /tmp/install-node.sh \
- && bash /tmp/install-node.sh \
- && apt-get update -qq -y \
- && DEBIAN_FRONTEND=noninteractive apt-get -qq -y --no-install-recommends install \
-    nodejs \
-    rsyslog \
-    sudo \
-    php-sqlite3 \
- \
- # Configure Node dependencies \
- && npm config set --global loglevel warn \
- && npm install --global marked \
- && npm install --global node-gyp \
- && npm install --global yarn \
- \
- # Install node-sass's linux bindings \
- && npm rebuild node-sass \
- \
- # Clean the image \
- && apt-get remove -qq -y php7.4-dev pkg-config libmagickwand-dev build-essential \
- && apt-get auto-remove -qq -y \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+WORKDIR /var/www/laravel
 
+RUN curl -o /usr/local/bin/composer https://getcomposer.org/download/latest-stable/composer.phar \
+    && chmod +x /usr/local/bin/composer
 
-COPY ./tools/docker/etc/ /etc/
-COPY ./tools/docker/usr/ /usr/
+# hadolint ignore=DL3008
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
+    cron \
+    icu-devtools \
+    jq \
+    libfreetype6-dev libicu-dev libjpeg62-turbo-dev libpng-dev libpq-dev \
+    libsasl2-dev libssl-dev libwebp-dev libxpm-dev libzip-dev libzstd-dev \
+    unzip \
+    zlib1g-dev \
+    && apt-get clean \
+    && apt-get autoclean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Add the application
-COPY . /app
-WORKDIR /app
+# hadolint ignore=DL3059
+RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
+    && pecl install --configureoptions='enable-redis-igbinary="yes" enable-redis-lzf="yes" enable-redis-zstd="yes"' igbinary zstd redis \
+    && pecl clear-cache \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm \
+    && docker-php-ext-install gd intl pdo_mysql pdo_pgsql zip \
+    && docker-php-ext-enable igbinary opcache redis zstd
 
-RUN container build
+COPY composer.json composer.lock ./
+RUN composer install --no-autoloader --no-scripts --no-dev
+
+COPY docker/ /
+RUN a2enmod rewrite headers \
+    && a2ensite laravel \
+    && a2dissite 000-default \
+    && chmod +x /usr/local/bin/docker-laravel-entrypoint
+
+COPY . /var/www/laravel
+RUN composer install --optimize-autoloader --no-dev
+
+CMD ["docker-laravel-entrypoint"]
