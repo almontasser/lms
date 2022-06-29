@@ -28,7 +28,6 @@ RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
     && docker-php-ext-enable igbinary opcache redis zstd
 
 COPY composer.json composer.lock ./
-RUN composer install --no-autoloader --no-scripts --no-dev
 
 COPY docker/ /
 RUN a2enmod rewrite headers \

@@ -3,6 +3,8 @@
 set -e
 cd /var/www/laravel
 
+RUN composer install --no-autoloader --no-scripts --no-dev
+
 role=${CONTAINER_ROLE:-app}
 if [[ -z "$APP_ENV" ]]; then
     export APP_ENV=local
