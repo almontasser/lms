@@ -1,5 +1,6 @@
 .git
 .env
 data/
+vender/
 Dockerfile
 docker-compose.yml
