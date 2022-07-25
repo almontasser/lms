@@ -2322,16 +2322,16 @@
         },
         {
             "name": "mailjet/mailjet-apiv3-php",
-            "version": "v1.5.6",
+            "version": "v1.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mailjet/mailjet-apiv3-php.git",
-                "reference": "d1db4aef5b9cb106a35829e1748561672e489206"
+                "reference": "414650b079dcec86ada225599e73092177e2d8e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mailjet/mailjet-apiv3-php/zipball/d1db4aef5b9cb106a35829e1748561672e489206",
-                "reference": "d1db4aef5b9cb106a35829e1748561672e489206",
+                "url": "https://api.github.com/repos/mailjet/mailjet-apiv3-php/zipball/414650b079dcec86ada225599e73092177e2d8e5",
+                "reference": "414650b079dcec86ada225599e73092177e2d8e5",
                 "shasum": ""
             },
             "require": {
@@ -2373,9 +2373,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mailjet/mailjet-apiv3-php/issues",
-                "source": "https://github.com/mailjet/mailjet-apiv3-php/tree/v1.5.6"
+                "source": "https://github.com/mailjet/mailjet-apiv3-php/tree/v1.5.7"
             },
-            "time": "2022-06-13T15:49:50+00:00"
+            "time": "2022-07-21T18:58:53+00:00"
         },
         {
             "name": "mailjet/mailjet-swiftmailer",
