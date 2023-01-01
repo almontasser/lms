@@ -1,7 +1,5 @@
-.env
 **/.gitignore
 .git/
-.env
 .idea/
 bootstrap/cache/*
 database/*.sqlite
