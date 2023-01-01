@@ -496,7 +496,7 @@
       <div class="content py-3">
         <div class="row font-size-sm">
           <div class="col-sm-6 order-sm-2 py-1 text-center text-sm-right">
-            برمجة وتصميم <i class="fa fa-heart text-danger"></i> <a class="font-w600"
+            برمجة وتصميم <a class="font-w600"
               href="javascript:void(0)">محمود المنتصر</a>
           </div>
           <div class="col-sm-6 order-sm-1 py-1 text-center text-sm-left">
@@ -529,3 +529,4 @@
 </body>
 
 </html>
+
