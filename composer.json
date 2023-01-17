@@ -22,7 +22,7 @@
         "picqer/php-barcode-generator": "^2.0",
         "predis/predis": "^2.0",
         "protonemedia/laravel-cross-eloquent-search": "^3.0",
-        "teamtnt/tntsearch": "^2.7"
+        "teamtnt/tntsearch": "^3.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
