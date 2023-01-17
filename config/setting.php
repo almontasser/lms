@@ -8,7 +8,7 @@ return [
     'default_value' => 'ليبيا'
   ],
   'app_logo' => [
-    'default_value' => 'media/LMS.png'
+    'default_value' => '/media/LMS.png'
   ],
   'facebook_page' => [
     'default_value' => ''
