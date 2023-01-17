@@ -23,6 +23,10 @@ class LoginController extends Controller
     /** @var User $user */
     $user = User::where('email', $request->input('email'))->first();
 
+    if (!$user) {
+      return redirect()->back();
+    }
+
     if ($user->isInactive()) {
       return redirect()->route('login-inactive');
     }
