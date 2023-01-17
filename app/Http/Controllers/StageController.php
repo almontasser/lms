@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Stage;
-use Doctrine\DBAL\Query\QueryException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class StageController extends Controller
