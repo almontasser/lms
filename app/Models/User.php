@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-use function PHPSTORM_META\type;
-
 class User extends Authenticatable
 {
   use HasFactory, Notifiable;
