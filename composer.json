@@ -13,7 +13,7 @@
         "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "janiskelemen/laravel-setting": "^2.0",
-        "laravel/framework": "^8.12",
+        "laravel/framework": "^9.0",
         "laravel/tinker": "^2.5",
         "mailjet/laravel-mailjet": "^3.0",
         "mailjet/mailjet-apiv3-php": "^1.5",
@@ -25,11 +25,11 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
-        "facade/ignition": "^2.5",
+        "spatie/laravel-ignition": "^1.0",
         "fakerphp/faker": "^1.9.1",
         "laravel-fans/docker": "^0.6.0",
         "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^5.0",
+        "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.3.3"
     },
     "config": {
