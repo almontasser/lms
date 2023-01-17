@@ -94,7 +94,7 @@ class BookInstanceController extends Controller
       // Should not happen
       return response()->json([
         'success' => false,
-        'error' => 'رقم العضو بيس موجودا'
+        'error' => 'رقم العضو ليس موجودا'
       ]);
     }
 
